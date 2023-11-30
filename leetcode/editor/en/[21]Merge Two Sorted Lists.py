@@ -47,22 +47,35 @@ class ListNode:
         self.next = next
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        result_list = temp_list = ListNode()
-        while list1 or list2:
-            if list1 is None:
-                temp_list.next = list2
-                break
-            if list2 is None:
-                temp_list.next = list1
-                break
+        result = temp = ListNode()
 
-            if list1.val < list2.val:
-                temp_list.next = list1
-                list1 = list1.next
-            elif list1.val >= list2.val:
-                temp_list.next = list2
+        while list1 and list2:
+            if list1.val <= list2.val:
+                result.val = list1.val
+                result.next = ListNode()
+            else:
+                result.val = list2.val
                 list2 = list2.next
+        return result
 
-            temp_list = temp_list.next
-        return result_list.next
-# leetcode submit region end(Prohibit modification and deletion)
+
+#     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+#         result_list = temp_list = ListNode()
+#         while list1 or list2:
+#             if list1 is None:
+#                 temp_list.next = list2
+#                 break
+#             if list2 is None:
+#                 temp_list.next = list1
+#                 break
+#
+#             if list1.val < list2.val:
+#                 temp_list.next = list1
+#                 list1 = list1.next
+#             elif list1.val >= list2.val:
+#                 temp_list.next = list2
+#                 list2 = list2.next
+#
+#             temp_list = temp_list.next
+#         return result_list.next
+# # leetcode submit region end(Prohibit modification and deletion)
