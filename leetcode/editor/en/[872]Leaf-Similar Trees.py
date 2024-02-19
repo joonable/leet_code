@@ -53,7 +53,6 @@ class Solution:
         Memory Usage:16.5 MB, less than 93.36% of Python3 online submissions.
         """
         def dfs(node):
-
             if node:
                 if not node.left and not node.right:
                     yield node.val
