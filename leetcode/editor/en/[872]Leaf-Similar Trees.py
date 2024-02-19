@@ -48,14 +48,18 @@
 #         self.right = right
 class Solution:
     def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        """
+        Runtime:27 ms, faster than 97.27% of Python3 online submissions.
+        Memory Usage:16.5 MB, less than 93.36% of Python3 online submissions.
+        """
         def dfs(node):
-            if not node.left and not node.right:
-                yield node.val
-            else:
-                yield from dfs(node.left)
-                yield from dfs(node.right)
 
-        print(list(dfs(root1)))
-        print(list(dfs(root2)))
+            if node:
+                if not node.left and not node.right:
+                    yield node.val
+                else:
+                    yield from dfs(node.left)
+                    yield from dfs(node.right)
+
         return list(dfs(root1)) == list(dfs(root2))
 # leetcode submit region end(Prohibit modification and deletion)
