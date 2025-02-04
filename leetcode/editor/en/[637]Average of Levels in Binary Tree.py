@@ -36,6 +36,7 @@
 from typing import List, Optional
 from collections import deque
 # Definition for a binary tree node.
+# TODO
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -43,20 +44,26 @@ class TreeNode:
         self.right = right
 class Solution:
     def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
-        dict_sum = {}
-        dict_cnt = {}
-        level = 0
-        def func(node, level):
-            if node is None:
-                return
-            dict_sum[level] = dict_sum.get(level, 0) + node.val
-            dict_cnt[level] = dict_cnt.get(level, 0) + 1
-            level += 1
-            func(node.left, level)
-            func(node.right, level)
-        func(root, level)
-        result = [val / dict_cnt[level] for level, val in dict_sum.items()]
+        if not root:
+            return []
+
+        result = []
+        queue = deque([root])
+
+        while queue:
+            level_size = len(queue)
+            level_sum = 0
+
+            for _ in range(level_size):
+                node = queue.popleft()
+                level_sum += node.val
+
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+
+            result.append(level_sum / level_size)
+
         return result
-
-
 # leetcode submit region end(Prohibit modification and deletion)
