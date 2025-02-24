@@ -80,3 +80,13 @@ class Solution:
                 dict_seen[n] = i
             else:
                 return [dict_seen[true_n], i]
+
+
+    # def twoSum(self, nums: list[int], target: int) -> list[int]:
+    #     dict_nums = {v: idx for idx, v in enumerate(nums)}
+    #     for i, v in enumerate(nums):
+    #         diff = target - v
+    #         if diff in dict_nums:
+    #             j = dict_nums[diff]
+    #             if i != j:
+    #                 return sorted([i, j])

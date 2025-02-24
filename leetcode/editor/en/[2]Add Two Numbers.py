@@ -51,21 +51,40 @@ from typing import Optional
 
 # TODO
 class Solution:
+    # def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+    #     l = dummy = ListNode()
+    #     carry = 0
+    #     while l1 or l2 or carry:
+    #         val = (l1.val if l1 else 0) + (l2.val if l2 else 0) + carry
+    #         # print(l1.val, l2.val, carry)
+    #
+    #         carry, val = divmod(val, 10)
+    #         # carry = val // 10
+    #         # val = val % 10
+    #
+    #         l.next = ListNode(val)
+    #         l = l.next
+    #
+    #         l1 = l1.next if l1 else None
+    #         l2 = l2.next if l2 else None
+    #     return dummy.next
+
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        l = dummy = ListNode()
+        result = l = ListNode() # TODO
+
         carry = 0
         while l1 or l2 or carry:
-            val = (l1.val if l1 else 0) + (l2.val if l2 else 0) + carry
-            # print(l1.val, l2.val, carry)
-
-            carry, val = divmod(val, 10)
-            # carry = val // 10
-            # val = val % 10
+            l1_val = l1.val if l1 else 0
+            l2_val = l2.val if l2 else 0
+            carry, val  = divmod(l1_val + l2_val + carry, 10)
 
             l.next = ListNode(val)
-            l = l.next
+            l = l.next  # TODO
 
             l1 = l1.next if l1 else None
             l2 = l2.next if l2 else None
-        return dummy.next
+
+        return result.next
+
+
     # leetcode submit region end(Prohibit modification and deletion)

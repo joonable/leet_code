@@ -37,40 +37,64 @@
 #  
 # 
 #  Related Topics Hash Table String Sliding Window 👍 40996 👎 1979
+from collections import deque
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
 # TODO
 class Solution:
+
     def lengthOfLongestSubstring(self, s: str) -> int:
-        len_s = len(s)
-        if len_s < 2:
-            return len_s
-
+        if len(s) == 1:
+            return 1
         max_len = 0
-        dict_cnt = {}
-        ptr_l, ptr_r = 0, 1
-        dict_cnt[s[0]] = 1
+        dq = deque()
+        dict_seen = {}
+        for ch in s:
+            is_seen = dict_seen.get(ch, False)
+            dict_seen[ch] = True
 
-        while True:
-            if ptr_r == len_s:
-                break
-
-            ch_r = s[ptr_r]
-            dict_cnt[ch_r] = dict_cnt.get(ch_r, 0) + 1
-
-            if dict_cnt[ch_r] == 2:
+            if is_seen:
                 while True:
-                    ch_l = s[ptr_l]
-                    if ptr_l == ptr_r or ptr_l == len_s:
+                    _ch = dq.popleft()
+                    if ch == _ch:
                         break
-                    dict_cnt[ch_l] -= 1
-                    if ch_r == ch_l:
-                        ptr_l += 1
-                        break
-                    ptr_l += 1
+                    dict_seen.pop(_ch)
 
-            max_len = max(max_len, ptr_r - ptr_l + 1)
-            ptr_r += 1
+            dq.append(ch)
+            max_len = max(len(dq), max_len)
 
-        return max_len
+        return max(len(dq), max_len)
+
+    # def lengthOfLongestSubstring(self, s: str) -> int:
+    #     len_s = len(s)
+    #     if len_s < 2:
+    #         return len_s
+    #
+    #     max_len = 0
+    #     dict_cnt = {}
+    #     ptr_l, ptr_r = 0, 1
+    #     dict_cnt[s[0]] = 1
+    #
+    #     while True:
+    #         if ptr_r == len_s:
+    #             break
+    #
+    #         ch_r = s[ptr_r]
+    #         dict_cnt[ch_r] = dict_cnt.get(ch_r, 0) + 1
+    #
+    #         if dict_cnt[ch_r] == 2:
+    #             while True:
+    #                 ch_l = s[ptr_l]
+    #                 if ptr_l == ptr_r or ptr_l == len_s:
+    #                     break
+    #                 dict_cnt[ch_l] -= 1
+    #                 if ch_r == ch_l:
+    #                     ptr_l += 1
+    #                     break
+    #                 ptr_l += 1
+    #
+    #         max_len = max(max_len, ptr_r - ptr_l + 1)
+    #         ptr_r += 1
+    #
+    #     return max_len
