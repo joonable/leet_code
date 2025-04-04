@@ -72,22 +72,41 @@ class Solution:
         Runtime:98 ms, faster than 77.39% of Python3 online submissions.
         Memory Usage:16.3 MB, less than 55.37% of Python3 online submissions.
         """
-        dict_row = {k: {} for k in range(9)}
-        dict_col = {k: {} for k in range(9)}
-        dict_square = {k2: {k: {} for k in range(3)} for k2 in range(3)}
+        # dict_row = {k: {} for k in range(9)}
+        # dict_col = {k: {} for k in range(9)}
+        # dict_square = {k2: {k: {} for k in range(3)} for k2 in range(3)}
+        #
+        # for r in range(9):
+        #     for c in range(9):
+        #         val = board[r][c]
+        #         if val == ".":
+        #             continue
+        #
+        #         if not (dict_row[r].get(val, True) and dict_col[c].get(val, True)
+        #                 and dict_square[r//3][c//3].get(val, True)):
+        #             return False
+        #
+        #         dict_row[r][val] = False
+        #         dict_col[c][val] = False
+        #         dict_square[r//3][c//3][val] = False
+        # return True
+        row = [[False] * 9 for _ in range(9)]
+        col = [[False] * 9 for _ in range(9)]
+        box = [[False] * 9 for _ in range(9)]
 
-        for r in range(9):
-            for c in range(9):
-                val = board[r][c]
-                if val == ".":
+        for i in range(9):
+            for j in range(9):
+                num = board[i][j]
+                if num == '.':
                     continue
+                num = int(num) - 1
 
-                if not (dict_row[r].get(val, True) and dict_col[c].get(val, True)
-                        and dict_square[r//3][c//3].get(val, True)):
+                box_idx = (i // 3) * 3 + (j // 3)
+                if row[i][num] or col[j][num] or box[box_idx][num]:
                     return False
 
-                dict_row[r][val] = False
-                dict_col[c][val] = False
-                dict_square[r//3][c//3][val] = False
+                row[i][num] = True
+                col[j][num] = True
+                box[box_idx][num] = True
 
         return True

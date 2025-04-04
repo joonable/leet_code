@@ -47,22 +47,38 @@
 from typing import List
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-        i, j = 0, 0
-        min_len = 0
-        while not i == j == len(nums)-1:
-            sum_output = sum(nums[i:j+1])
-            if sum_output == target:
-                if min_len == 0 or min_len > j+1-i:
-                    min_len = j+1 - i
-                i += 1
-            elif i == j:
-                j += 1
-            elif j == len(nums)-1:
-                i += 1
-            elif sum_output < target:
-                j += 1
-            else:
-                i += 1
-        return min_len
+        n = len(nums)
+        min_len = n + 1
+        left = 0
+        cur_sum = 0
+
+        for right in range(n):
+            cur_sum += nums[right]
+
+            while left <= right and cur_sum >= target:
+                min_len = min(right - left + 1, min_len)
+                cur_sum -= nums[left]
+                left += 1
+
+        return 0 if min_len == n + 1 else min_len
+
+
+        # i, j = 0, 0
+        # min_len = 0
+        # while not i == j == len(nums)-1:
+        #     sum_output = sum(nums[i:j+1])
+        #     if sum_output == target:
+        #         if min_len == 0 or min_len > j+1-i:
+        #             min_len = j+1 - i
+        #         i += 1
+        #     elif i == j:
+        #         j += 1
+        #     elif j == len(nums)-1:
+        #         i += 1
+        #     elif sum_output < target:
+        #         j += 1
+        #     else:
+        #         i += 1
+        # return min_len
         
 # leetcode submit region end(Prohibit modification and deletion)

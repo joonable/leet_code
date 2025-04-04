@@ -34,6 +34,16 @@ from collections import Counter
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         counter = Counter(nums)
-        return [k for k, v in counter.most_common(k)]
-        
+        # return [k for k, v in counter.most_common(k)]
+
+        buckets = [[] for _ in range(len(nums) + 1)]
+
+        for num, cnt in counter.items():
+            buckets[cnt].append(num)
+        result = []
+        for bucket in reversed(buckets):
+            result += bucket
+            if len(result) == k:
+                return result
+
 # leetcode submit region end(Prohibit modification and deletion)
