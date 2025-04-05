@@ -40,15 +40,24 @@ class Solution:
         Runtime:860 ms, faster than 93.77% of Python3 online submissions.
         Memory Usage:28.3 MB, less than 91.02% of Python3 online submissions.
         """
-        length = len(nums)
-        max_sum = sum(nums[0:k])
-        sub_sum = sum(nums[0:k])
+        # length = len(nums)
+        # max_sum = sum(nums[0:k])
+        # sub_sum = sum(nums[0:k])
+        #
+        # for i in range(1, length-k+1):
+        #     sub_sum = sub_sum - nums[i-1] + nums[i+k-1]
+        #     if sub_sum > max_sum:
+        #         max_sum = sub_sum
+        # return max_sum/k
 
-        for i in range(1, length-k+1):
-            sub_sum = sub_sum - nums[i-1] + nums[i+k-1]
-            if sub_sum > max_sum:
-                max_sum = sub_sum
-        return max_sum/k
+        cur_sum = sum(nums[:k])
+        max_sum = cur_sum
+
+        for i in range(k, len(nums)):
+            cur_sum += nums[i] - nums[i - k]
+            max_sum = max(max_sum, cur_sum)
+
+        return max_sum / k
 
 
 # leetcode submit region end(Prohibit modification and deletion)

@@ -102,21 +102,30 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
-    # TODO
     def simplifyPath(self, path: str) -> str:
-        if path == '/':
-            return '/'
+        # if path == '/':
+        #     return '/'
+        #
+        # list_result = []
+        # for i, sub_path in enumerate(path.split('/')):
+        #     if sub_path == '.' or sub_path == '':
+        #         continue
+        #     elif sub_path == '..':
+        #         if list_result:
+        #             list_result.pop()
+        #     else:
+        #         list_result.append(sub_path)
+        # return '/' + '/'.join(list_result)
 
-        list_result = []
-        for i, sub_path in enumerate(path.split('/')):
-            if sub_path == '.' or sub_path == '':
+        stack = []
+        for part in path.split('/'):
+            if part == '' or part == '.':
                 continue
-            elif sub_path == '..':
-                if list_result:
-                    list_result.pop()
+            elif part == '..':
+                if stack:
+                    stack.pop()
             else:
-                list_result.append(sub_path)
-        return '/' + '/'.join(list_result)
-
+                stack.append(part)
+        return '/' + '/'.join(stack)
 
 # leetcode submit region end(Prohibit modification and deletion)
