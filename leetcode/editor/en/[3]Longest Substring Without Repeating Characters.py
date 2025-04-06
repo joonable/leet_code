@@ -41,30 +41,42 @@ from collections import deque
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-# TODO
 class Solution:
 
     def lengthOfLongestSubstring(self, s: str) -> int:
-        if len(s) == 1:
-            return 1
+        l = 0
         max_len = 0
-        dq = deque()
-        dict_seen = {}
-        for ch in s:
-            is_seen = dict_seen.get(ch, False)
-            dict_seen[ch] = True
+        char_set = set()
 
-            if is_seen:
-                while True:
-                    _ch = dq.popleft()
-                    if ch == _ch:
-                        break
-                    dict_seen.pop(_ch)
+        for r in range(len(s)):
+            while s[r] in char_set:
+                char_set.remove(s[l])
+                l += 1
+            char_set.add(s[r])
+            max_len = max(max_len, r - l + 1)
 
-            dq.append(ch)
-            max_len = max(len(dq), max_len)
-
-        return max(len(dq), max_len)
+        return max_len
+        #
+        # if len(s) == 1:
+        #     return 1
+        # max_len = 0
+        # dq = deque()
+        # dict_seen = {}
+        # for ch in s:
+        #     is_seen = dict_seen.get(ch, False)
+        #     dict_seen[ch] = True
+        #
+        #     if is_seen:
+        #         while True:
+        #             _ch = dq.popleft()
+        #             if ch == _ch:
+        #                 break
+        #             dict_seen.pop(_ch)
+        #
+        #     dq.append(ch)
+        #     max_len = max(len(dq), max_len)
+        #
+        # return max(len(dq), max_len)
 
     # def lengthOfLongestSubstring(self, s: str) -> int:
     #     len_s = len(s)
