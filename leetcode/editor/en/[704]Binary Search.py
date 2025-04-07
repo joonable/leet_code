@@ -35,18 +35,33 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from typing import List
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        if target in nums:
-            def binary_search(l_pos, r_pos):
-                pivot_idx = (l_pos + r_pos) // 2
-                # print(l_pos, r_pos, pivot_idx, target, nums[pivot_idx])
-                if target < nums[pivot_idx]:
-                    return binary_search(l_pos, pivot_idx)
-                elif nums[pivot_idx] < target:
-                    return binary_search(pivot_idx, r_pos)
-                else:
-                    return pivot_idx
-            return binary_search(0, len(nums))
-        else:
-            return -1
+        # def binary_search(start_idx, end_idx): # TODO end_idx
+        #     if start_idx > end_idx:
+        #         return -1
+
+        #     mid_idx = (start_idx + end_idx) // 2
+        #     if nums[mid_idx] == target:
+        #         return mid_idx
+        #     elif nums[mid_idx] > target:
+        #         return binary_search(start_idx, mid_idx - 1)
+        #     else:
+        #         return binary_search(mid_idx + 1, end_idx)
+
+        # return binary_search(0, len(nums) - 1)
+
+        left = 0
+        right = len(nums) - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return -1

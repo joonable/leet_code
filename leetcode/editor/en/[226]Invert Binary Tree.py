@@ -49,6 +49,15 @@ class Solution:
         root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
         return root
 
+    # def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+    #     def dfs(node):
+    #         if not node:
+    #             return None
+    #         temp = dfs(node.left)
+    #         node.left = dfs(node.right)
+    #         node.right = temp
+    #         return node
+    #
+    #     return dfs(root)
 
-        
 # leetcode submit region end(Prohibit modification and deletion)

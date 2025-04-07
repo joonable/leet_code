@@ -46,21 +46,25 @@
 
 class Solution:
     def firstBadVersion(self, n: int) -> int:
-        if n == 1: return 1
+        left = 1
+        right = n
+        while left < right:
+            mid = (left + right) // 2
+            if not isBadVersion(mid): # False
+                left = mid + 1
+            else: # True
+                right = mid
+        return left
 
-        def binary_search(left_pos, right_pos):
-            pivot_idx = (left_pos + right_pos) // 2
-            is_bad_prev = isBadVersion(pivot_idx - 1)
-            is_bad = isBadVersion(pivot_idx)
-
-            if is_bad_prev is False and is_bad is False:
-                return binary_search(pivot_idx, right_pos)
-            elif is_bad_prev and is_bad:
-                return binary_search(left_pos, pivot_idx)
-            else:
-                return pivot_idx
-
-        return binary_search(1, n+1)
-
-
+        # left = 1
+        # right = n
+        # while left <= right:
+        #     mid = (left + right) // 2
+        #     if not isBadVersion(mid): # False
+        #         left = mid + 1
+        #     else: # True
+        #         if not isBadVersion(mid - 1): # False
+        #             return mid
+        #         else:
+        #             right = mid - 1
 
