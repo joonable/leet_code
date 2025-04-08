@@ -30,20 +30,66 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 from typing import List
-from collections import Counter
+from collections import defaultdict, Counter
+from heapq import heappush, heappop
+
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        counter = Counter(nums)
-        # return [k for k, v in counter.most_common(k)]
 
-        buckets = [[] for _ in range(len(nums) + 1)]
+        ######## dict
+        freqs = defaultdict(int)
+        for num in nums:
+            freqs[num] += 1
 
-        for num, cnt in counter.items():
-            buckets[cnt].append(num)
+        freqs = sorted(freqs.items(), key=lambda x: x[1], reverse=True)
+        return [d[0] for d in freqs[:k]]
+
+        ######## dict + bucket
+        freqs = defaultdict(int)
+        for num in nums:
+            freqs[num] += 1
+
+        bucket = [[] for _ in range(len(nums) + 1)]
+        for num, freq in freqs.items():
+            bucket[freq].append(num)
+
         result = []
-        for bucket in reversed(buckets):
-            result += bucket
-            if len(result) == k:
-                return result
+        for nums in reversed(bucket):
+            result.extend(nums)
+            if k <= len(result):
+                break
+        return result
+
+        ######## dict + min_heapq
+        freqs = defaultdict(int)
+        for num in nums:
+            freqs[num] += 1
+
+        heap = []  # min-heap: (frequency, number)
+        for num, freq in freqs.items():
+            heappush(heap, (freq, num))
+            if len(heap) > k:
+                heappop(heap)  # 최소 빈도 pop
+
+        return [num for freq, num in heap]
+
+        ######## dict + max_heapq
+        freqs = defaultdict(int)
+        for num in nums:
+            freqs[num] += 1
+
+        heap = []
+        for num, freq in freqs.items():
+            heappush(heap, (-freq, num))
+
+        result = []
+        while len(result) < k:
+            freq, num = heappop(heap)
+            result.append(num)
+        return result
+
+        # ######## counter
+        counter = Counter(nums)
+        return [tup[0] for tup in counter.most_common(k)]
 
 # leetcode submit region end(Prohibit modification and deletion)

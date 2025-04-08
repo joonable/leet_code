@@ -47,53 +47,44 @@
 #         self.next = next
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        dummy = result = ListNode()
-        if not (list1 or list2):
-            return list2
-        if not list1:
-            return list2
-        if not list2:
-            return list1
+        head = curr = ListNode()  # dummy node
 
         while list1 and list2:
-            if list1.val <= list2.val:
-                result.next = ListNode(list1.val)
+            if list1.val < list2.val:
+                curr.next = list1
                 list1 = list1.next
             else:
-                result.next = ListNode(list2.val)
+                curr.next = list2
                 list2 = list2.next
-            result = result.next
+            curr = curr.next
 
-        while list1:
-            result.next = ListNode(list1.val)
-            list1 = list1.next
-            result = result.next
+        # 남은 부분 연결
+        curr.next = list1 or list2
 
-        while list2:
-            result.next = ListNode(list2.val)
-            list2 = list2.next
-            result = result.next
+        return head.next
 
-        return dummy.next
+        # if not list1 and not list2:
+        #     return list1
+        # elif not list1:
+        #     return list2
+        # elif not list2:
+        #     return list1
 
+        # head = curr = ListNode()
 
-#     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-#         result_list = temp_list = ListNode()
-#         while list1 or list2:
-#             if list1 is None:
-#                 temp_list.next = list2
-#                 break
-#             if list2 is None:
-#                 temp_list.next = list1
-#                 break
-#
-#             if list1.val < list2.val:
-#                 temp_list.next = list1
-#                 list1 = list1.next
-#             elif list1.val >= list2.val:
-#                 temp_list.next = list2
-#                 list2 = list2.next
-#
-#             temp_list = temp_list.next
-#         return result_list.next
-# # leetcode submit region end(Prohibit modification and deletion)
+        # while list1 or list2:
+        #     if not list1:
+        #         curr.next = list2
+        #         list2 = list2.next
+        #     elif not list2:
+        #         curr.next = list1
+        #         list1 = list1.next
+        #     elif list1.val < list2.val:
+        #         curr.next = list1
+        #         list1 = list1.next
+        #     else:
+        #         curr.next = list2
+        #         list2 = list2.next
+        #     curr = curr.next
+
+        # return head.next

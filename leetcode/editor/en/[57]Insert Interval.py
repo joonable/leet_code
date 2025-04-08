@@ -42,20 +42,44 @@
 # 
 #  Related Topics Array 👍 10803 👎 859
 
-# TODO
 from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        intervals.append(newInterval)
-        intervals.sort(key=lambda x: x[0])
-        result = [intervals[0]]
+        # intervals.append(newInterval)
+        # intervals.sort(key=lambda x: x[0])
+        # result = [intervals[0]]
+        #
+        # for interval in intervals[1:]:
+        #     if result[-1][1] >= interval[0]:
+        #         result[-1][1] = max(result[-1][1], interval[1])
+        #     else:
+        #         result.append(interval)
+        #
+        # return result
 
-        for interval in intervals[1:]:
-            if result[-1][1] >= interval[0]:
-                result[-1][1] = max(result[-1][1], interval[1])
-            else:
-                result.append(interval)
+        merged = []
+        i = 0
+        n = len(intervals)
 
-        return result
+        # Step 1: add intervals before newInterval
+        while i < n and intervals[i][1] < newInterval[0]:
+            merged.append(intervals[i])
+            i += 1
+
+        # Step 2: merge overlapping intervals
+        while i < n and intervals[i][0] <= newInterval[1]:
+            newInterval[0] = min(newInterval[0], intervals[i][0])
+            newInterval[1] = max(newInterval[1], intervals[i][1])
+            i += 1
+
+        # Step 3: add the merged newInterval
+        merged.append(newInterval)
+
+        # Step 4: add remaining intervals
+        while i < n:
+            merged.append(intervals[i])
+            i += 1
+
+        return merged
 # leetcode submit region end(Prohibit modification and deletion)
