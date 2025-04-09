@@ -60,14 +60,34 @@ class ListNode:
 
 class Solution:
     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        nodemap = set()
-        while head:
-            if head in nodemap:
-                return head
-            else:
-                nodemap.add(head)
-            head= head.next
-        return None
+        '''
+        I used Floyd’s Tortoise and Hare algorithm.
+        One pointer moves twice as fast as the other.
+        If there’s a cycle, they’ll meet inside the cycle.
+        Then I reset one pointer to the head, and move both one step at a time.
+        They meet again at the start of the cycle.
+        '''
+        slow = head
+        fast = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                start = head
+                while start != fast:
+                    start = start.next
+                    fast = fast.next
+                return start
+
+        # nodemap = set()
+        # while head:
+        #     if head in nodemap:
+        #         return head
+        #     else:
+        #         nodemap.add(head)
+        #     head= head.next
+        # return None
 
         # i = 0
         # dict_pos = {}

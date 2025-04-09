@@ -45,25 +45,43 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        ptr_fast = head
-        ptr_slow = head
+        # dummy.next is a virtual starting point used to flexibly handle insertion, deletion, or modification of a linked list, including cases where the head node might change.
+        dummy = ListNode()
+        dummy.next = head
+        slow = dummy
+        fast = dummy
 
-        for i in range(n):
-            ptr_fast = ptr_fast.next
-            if not ptr_fast:
-                return head.next
+        for _ in range(n):
+            fast = fast.next
 
-        while ptr_fast.next is not None:
-            ptr_fast = ptr_fast.next
-            ptr_slow = ptr_slow.next
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
 
-        ptr_slow.next = ptr_slow.next.next
+        slow.next = slow.next.next
+        return dummy.next
 
-        return head
+    # def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+    #     fast = head
+    #     slow = head
+    #
+    #     for i in range(n):
+    #         fast = fast.next
+    #         if not fast:
+    #             return head.next
+    #
+    #     while fast.next:
+    #         fast = fast.next
+    #         slow = slow.next
+    #
+    #     slow.next = slow.next.next
+    #
+    #     return head
 
-
+        # 
         # Two pointers - fast and slow
         # slow = head
         # fast = head

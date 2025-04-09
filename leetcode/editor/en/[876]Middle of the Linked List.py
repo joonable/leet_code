@@ -40,13 +40,11 @@ class ListNode:
         self.next = next
 class Solution:
     def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        # result = temp_result = ListNode()
-        result = head
-        cnt = 0
-        while head:
-            if cnt % 2 == 1:
-                result = result.next
-            head = head.next
-            cnt += 1
-        return result
+
+        slow = head
+        fast = head
+        while fast and fast.next: # important
+            slow = slow.next
+            fast = fast.next.next
+        return slow
 # leetcode submit region end(Prohibit modification and deletion)
