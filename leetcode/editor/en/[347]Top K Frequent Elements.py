@@ -74,17 +74,12 @@ class Solution:
         return [num for freq, num in heap]
 
         ######## dict + max_heapq
-        freqs = defaultdict(int)
-        for num in nums:
-            freqs[num] += 1
-
-        heap = []
-        for num, freq in freqs.items():
-            heappush(heap, (-freq, num))
-
+        counter = Counter(nums)
+        heap = [(-count, num) for num, count in counter.items()]
+        heapify(heap)
         result = []
-        while len(result) < k:
-            freq, num = heappop(heap)
+        for _ in range(k):
+            count, num = heappop(heap)
             result.append(num)
         return result
 

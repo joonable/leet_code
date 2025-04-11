@@ -72,14 +72,21 @@ class Solution:
             Memory Usage:17.4 MB, less than 57.94% of Python3 online submissions.
         """
 
-        dict_seen = {}
-        for i in range(len(nums)):
-            n = nums[i]
-            true_n = target - n
-            if dict_seen.get(true_n, -1) == -1:
-                dict_seen[n] = i
-            else:
-                return [dict_seen[true_n], i]
+        lookup = {}
+        for i, num in enumerate(nums):
+            diff = target - num
+            if diff in lookup:
+                return [lookup[diff], i]
+            lookup[num] = i
+
+        # dict_seen = {}
+        # for i in range(len(nums)):
+        #     n = nums[i]
+        #     true_n = target - n
+        #     if dict_seen.get(true_n, -1) == -1:
+        #         dict_seen[n] = i
+        #     else:
+        #         return [dict_seen[true_n], i]
 
 
     # def twoSum(self, nums: list[int], target: int) -> list[int]:

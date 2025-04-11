@@ -51,28 +51,52 @@ from typing import List
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        in_degree = [0] * numCourses
-
+        in_degrees = [0] * numCourses
         graph = defaultdict(list)
-        for prev, next_ in prerequisites:
-            in_degree[next_] += 1
-            graph[prev].append(next_)
+        for prev_course, next_course in prerequisites:
+            in_degrees[next_course] += 1
+            graph[prev_course].append(next_course)
 
         q = deque()
-        for i in range(numCourses):
-            if in_degree[i] == 0:
-                q.append(i)
+        for course, in_degree in enumerate(in_degrees):
+            if in_degree == 0:
+                q.append(course)
 
-        completed_courses = 0
+        completed_course = 0
         while q:
             course = q.popleft()
-            completed_courses += 1
+            completed_course += 1
 
-            for neighbor in graph[course]:
-                in_degree[neighbor] -= 1
-                if in_degree[neighbor] == 0:
-                    q.append(neighbor)
+            for next_course in graph[course]:
+                in_degrees[next_course] -= 1
+                if in_degrees[next_course] == 0:
+                    q.append(next_course)
 
-        return completed_courses == numCourses
-        
+        return completed_course == numCourses
+
+        # # dfs
+        # graph = defaultdict(list)
+        # for a, b in prerequisites:
+        #     graph[b].append(a)
+        #
+        # visited = [0] * numCourses  # 0 = unvisited, -1 = visiting, 1 = visited
+        #
+        # def dfs(course):
+        #     if visited[course] == -1:  # 현재 경로에서 다시 만남 → 사이클
+        #         return False
+        #     if visited[course] == 1:  # 이미 확인된 노드 → OK
+        #         return True
+        #
+        #     visited[course] = -1  # 방문 시작
+        #     for neighbor in graph[course]:
+        #         if not dfs(neighbor):
+        #             return False
+        #     visited[course] = 1  # 방문 완료
+        #     return True
+        #
+        # for course in range(numCourses):
+        #     if not dfs(course):
+        #         return False
+        # return True
+
 # leetcode submit region end(Prohibit modification and deletion)
