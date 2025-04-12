@@ -34,7 +34,6 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 from typing import Optional
 # Definition for a binary tree node.
-# TODO
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -45,9 +44,7 @@ class Solution:
         def dfs(left, right):
             if not left and not right:
                 return True
-            if not left or not right:
-                return False
-            if left.val != right.val:
+            if not left or not right or left.val != right.val: # important
                 return False
             return dfs(left.left, right.right) and dfs(right.left, left.right)
         return dfs(root.left, root.right)

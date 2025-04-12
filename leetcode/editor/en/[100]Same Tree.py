@@ -41,7 +41,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 from typing import Optional
 # Definition for a binary tree node.
-# TODO
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -49,13 +49,12 @@ class TreeNode:
         self.right = right
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        if not p and not q:
+        if p == q:
             return True
-        if not p or not q:
-            return False
-        if p.val != q.val:
+        if not p or not q or p.val != p.val:
             return False
         return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+
 
         
 # leetcode submit region end(Prohibit modification and deletion)

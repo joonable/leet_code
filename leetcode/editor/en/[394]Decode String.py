@@ -67,9 +67,29 @@ class Solution:
             elif ch == ']':
                 prev_str = str_stack.pop()
                 repeat = num_stack.pop()
-                cur_str = prev_str + repeat * cur_str
+                cur_str = prev_str + repeat * cur_str   # important
             else:
                 cur_str += ch
+
+        # 3[a]2[bc]
+        # 3: cur_num 3
+        # [: str_stack = [], num_stack = [3], cur_str = '', cur_num = ''
+        # a: cur_str = 'a'
+        # ]: cur_str ='' + 3 * 'a' = 'aaa', str_stack = [], num_stack = []
+        # 2: cur_num = 2
+        # [: str_stack = ['aaa'], num_stack = [2], cur_str = '', cur_num = ''
+        # bc: cur_str = 'bc'
+        # ]: 'aaa' + 2 * 'bc' = 'aaabcbc'
+
+        # 3[a2[c]]
+        # 3: cur_num = 3
+        # [: str_stack = [''], num_stack = [3], cur_str = '', cur_num = ''
+        # a: cur_str = 'a'
+        # 2: cur_num = 2
+        # [: str_stack = ['', 'a'], num_stac = [3, 2], cur_str = '', cur_num = ''
+        # c: cur_str = 'c'
+        # ]: 'a' + 2 * 'c' = 'acc', str_stack = [''], num_stac = [3]
+        # ]: '' + 3*'acc' = 'accaccacc'
 
         return cur_str
         

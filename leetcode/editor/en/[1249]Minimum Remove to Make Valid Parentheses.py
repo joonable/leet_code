@@ -51,50 +51,27 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        if not s:
-            return s
-
+        open_parentheses = 0
         stack = []
-        n_open_bracket = 0
-
         for ch in s:
             if ch == '(':
+                open_parentheses += 1
                 stack.append(ch)
-                n_open_bracket += 1
             elif ch == ')':
-                if n_open_bracket > 0:
+                if open_parentheses > 0:
+                    open_parentheses -= 1
                     stack.append(ch)
-                    n_open_bracket -= 1
             else:
                 stack.append(ch)
 
         result = []
         for ch in reversed(stack):
-            # for ch in stack:
-            # ch = stack.pop()
-            if ch == '(' and n_open_bracket > 0:
-                n_open_bracket -= 1
-                continue
+            if open_parentheses > 0 and ch == '(':
+                open_parentheses -= 1
             else:
                 result.append(ch)
+        return "".join(reversed(result))
 
-        return ''.join(result[::-1])
 
-        # stack = []
-        # remove_idx = set()
-
-        # for i, ch in enumerate(s):
-        #     if ch == '(':
-        #         stack.append(i)
-        #     elif ch == ')':
-        #         if stack:
-        #             stack.pop()
-        #         else:
-        #             remove_idx.add(i)
-
-        # remove_idx.update(stack)
-
-        # result = [ch for i, ch in enumerate(s) if i not in remove_idx]
-        # return ''.join(result)
 
 # leetcode submit region end(Prohibit modification and deletion)

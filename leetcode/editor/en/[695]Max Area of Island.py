@@ -67,6 +67,24 @@ class Solution:
             for c in range(cols):
                 if grid[r][c]:
                     max_area = max(max_area, dfs(r, c))
-
         return max_area
+
+        # queue = deque()
+        # for r in range(rows):
+        #     for c in range(cols):
+        #         if grid[r][c] == 1:
+        #             curr_area = 0
+        #             grid[r][c] = 0
+        #             queue.append((r, c))
+        #             while queue:
+        #                 curr_area += 1
+        #                 r, c = queue.popleft()
+        #                 for nr, nc in get_neighbours(r, c):
+        #                     if is_valid(nr, nc) and grid[nr][nc] == 1:
+        #                         grid[nr][nc] = 0
+        #                         queue.append((nr, nc))
+        #             max_area = max(curr_area, max_area)
+        # return max_area
+
+
 # leetcode submit region end(Prohibit modification and deletion)
