@@ -139,5 +139,37 @@ class Solution:
         atlantic_reachable = bfs(atlantic_starts)
 
         return list(pacific_reachable & atlantic_reachable)
-        
+
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        pacific_visited = set()
+        atlantic_visited = set()
+        m = len(heights)
+        n = len(heights[0])
+
+        def get_neighbours(r, c):
+            return [(r - 1, c), (r, c - 1), (r + 1, c), (r, c + 1)]
+
+        def is_valid(r, c):
+            return 0 <= r < m and 0 <= c < n
+
+        def dfs(r, c, is_pacific):
+            visited = pacific_visited if is_pacific else atlantic_visited
+            visited.add((r, c))
+            for nr, nc in get_neighbours(r, c):
+                if is_valid(nr, nc) and (nr, nc) not in visited \
+                    and heights[r][c] <= heights[nr][nc]:
+                    dfs(nr, nc, is_pacific)
+
+        for r in range(m):
+            for c in range(n):
+                if r == 0 or c == 0:
+                    if (r, c) not in pacific_visited:
+                        dfs(r, c, True)
+                if r == m - 1 or c == n - 1:
+                    if (r, c) not in atlantic_visited:
+                        dfs(r, c, False)
+
+        return list(pacific_visited.intersection(atlantic_visited))
+
 # leetcode submit region end(Prohibit modification and deletion)

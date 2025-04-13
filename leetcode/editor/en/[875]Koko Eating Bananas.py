@@ -62,10 +62,10 @@ class Solution:
             mid = (left + right) // 2
             need = sum([ceil(pile / mid) for pile in piles])
             if h < need:
-                left = mid + 1
+                left = mid + 1      # important
             else:
-                right = mid - 1
-                min_k = min(min_k, mid)
+                right = mid - 1     # important
+                min_k = min(min_k, mid)     # important
         return min_k
 
 # leetcode submit region end(Prohibit modification and deletion)

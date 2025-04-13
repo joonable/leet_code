@@ -33,41 +33,35 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 from collections import Counter, defaultdict
-
-
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        if len(s1) > len(s2):
+        if len(s2) < len(s1):
             return False
-
-        need = defaultdict(int)
-        for ch in s1:
-            need[ch] += 1
-
+        need = Counter(s1)
         window = defaultdict(int)
-        matched = 0
-        left = 0
+        window_size = len(s1)
 
-        for right in range(len(s2)):
-            char = s2[right]
-            if char in need:
-                window[char] += 1
-                if window[char] == need[char]:
+        matched = 0
+
+        for i in range(len(s2)):
+            ch = s2[i]
+            if ch in need:
+                window[ch] += 1
+                if window[ch] == need[ch]:
                     matched += 1
 
-            # 윈도우 사이즈 고정: s1과 같은 길이
-            if right >= len(s1):
-                left_char = s2[left]
-                if left_char in need:
-                    if window[left_char] == need[left_char]:
+            if i - window_size >= 0:
+                prev_ch = s2[i - window_size]
+                if prev_ch in need:
+                    if window[prev_ch] == need[prev_ch]:
                         matched -= 1
-                    window[left_char] -= 1
-                left += 1
+                    window[prev_ch] -= 1
 
             if matched == len(need):
                 return True
 
         return False
+
         # len_s1 = len(s1)
         # len_s2 = len(s2)
         # need = Counter(s1)
