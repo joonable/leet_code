@@ -54,14 +54,14 @@ class Solution:
         slow = dummy
         fast = dummy
 
-        for _ in range(n):
+        for _ in range(n):      # important
             fast = fast.next
 
-        while fast.next:
+        while fast.next:        # important
             slow = slow.next
             fast = fast.next
 
-        slow.next = slow.next.next
+        slow.next = slow.next.next      # important
         return dummy.next
 
     # def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:

@@ -53,12 +53,12 @@
 from collections import deque
 class MinStack:
     def __init__(self):
-        self._stack = deque()
-        self._min_stack = deque([float("inf")])
+        self._stack = []
+        self._min_stack = [float("inf")]    # important
 
     def push(self, val: int) -> None:
         self._stack.append(val)
-        self._min_stack.append(min(val, self._min_stack[-1]))
+        self._min_stack.append(min(val, self._min_stack[-1]))   # important
 
     def pop(self) -> None:
         self._stack.pop()
@@ -68,7 +68,7 @@ class MinStack:
         return self._stack[-1]
 
     def getMin(self) -> int:
-        return self._min_stack[-1]
+        return self._min_stack[-1]  # important
 
 
 # Your MinStack object will be instantiated and called as such:

@@ -53,20 +53,13 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
 class Solution:
     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        '''
-        I used Floyd’s Tortoise and Hare algorithm.
-        One pointer moves twice as fast as the other.
-        If there’s a cycle, they’ll meet inside the cycle.
-        Then I reset one pointer to the head, and move both one step at a time.
-        They meet again at the start of the cycle.
-        '''
         slow = head
         fast = head
 
@@ -75,37 +68,11 @@ class Solution:
             fast = fast.next.next
             if slow == fast:
                 start = head
-                while start != fast:
+                while start != slow:
+                    slow = slow.next
                     start = start.next
-                    fast = fast.next
                 return start
 
-        # nodemap = set()
-        # while head:
-        #     if head in nodemap:
-        #         return head
-        #     else:
-        #         nodemap.add(head)
-        #     head= head.next
-        # return None
 
-        # i = 0
-        # dict_pos = {}
-        # result = head
-        # while head:
-        #     if head.val in dict_pos.keys():
-        #         return dict_pos[head.val]
-        #     else:
-        #         dict_pos[head.val] = head
-        #         head = head.next
-        #         print(dict_pos)
-        #         # i += 1
-        # return result
-        # dict_pos = {}
-        # head_v2 = head
-        # while head:
-        #     dict_pos[head.val] = head
-        #     head = head.next
-        # head_v2.next =
-        # return ListNode()
-# leetcode submit region end(Prohibit modification and deletion)
+
+        # leetcode submit region end(Prohibit modification and deletion)

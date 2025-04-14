@@ -41,24 +41,24 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def calculate(self, s: str) -> int:
-        num = 0
         stack = []
-        sign = '+'
+        num = 0     # important
+        sign = '+'  # important
 
-        for ch in s + '+':
+        for ch in s + '+':  # important
             if ch == ' ':
                 continue
             elif ch.isdigit():
-                num = num * 10 + int(ch)
+                num = num * 10 + int(ch)    # important
             elif ch in '+-*/':
                 if sign == '+':
                     stack.append(num)
                 elif sign == '-':
                     stack.append(-1 * num)
                 elif sign == '*':
-                    stack.append(stack.pop() * num)
+                    stack.append(stack.pop() * num)     # important
                 elif sign == '/':
-                    stack.append(int(stack.pop() / num))
+                    stack.append(int(stack.pop() / num)) # important
                 num = 0
                 sign = ch
 

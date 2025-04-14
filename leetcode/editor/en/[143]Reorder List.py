@@ -59,7 +59,7 @@ class Solution:
             fast = fast.next.next
 
         prev = None
-        curr = slow.next
+        curr = slow.next # important
         slow.next = None  # important
 
         while curr:

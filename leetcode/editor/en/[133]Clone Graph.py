@@ -84,22 +84,22 @@ class Node:
 from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        if not node:
-            return None
-
         copied = {}
 
         def dfs(curr):
-            if curr in copied:
+            if not node:
+                return None
+
+            if curr in copied:  # important
                 return copied[curr]
 
             # 새 노드 만들기
-            copy = Node(curr.val)
+            copy = Node(curr.val)   # important
             copied[curr] = copy
 
             # 이웃 복사
             for neighbor in curr.neighbors:
-                copy.neighbors.append(dfs(neighbor))
+                copy.neighbors.append(dfs(neighbor))    # important
 
             return copy
 

@@ -54,9 +54,9 @@ class Solution:
         result = []
 
         for i in range(n - 2):
-            if nums[i] > 0:
+            if nums[i] > 0: # important
                 break
-            if i > 0 and nums[i - 1] == nums[i]:
+            if i > 0 and nums[i - 1] == nums[i]:    # important
                 continue
 
             left, right = i + 1, n - 1

@@ -57,42 +57,23 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
-
     def findMin(self, nums: List[int]) -> int:
         left = 0
         right = len(nums) - 1
 
-        while left < right:
-            mid = (left + right) // 2
+        if nums[left] < nums[right]:
+            return nums[0]
 
-            if nums[mid] > nums[right]:
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid - 1] < nums[mid] < nums[mid + 1]:
+                return nums[mid]
+            elif nums[mid] > nums[mid + 1]:
                 left = mid + 1
             else:
-                right = mid
+                right = mid - 1
 
-        return nums[left]
 
-    # def findMin(self, nums: List[int]) -> int:
-    #     n = len(nums)
-    #     if n == 1:
-    #         return nums[0]
-    #     if nums[0] < nums[n-1]:
-    #         return nums[0]
 
-    #     left = 0
-    #     right = n - 1
-
-    #     first_elem = nums[0]
-    #     while left <= right:
-    #         mid = (left + right) // 2
-    #         if mid == 0:
-    #             mid += 1
-
-    #         if nums[mid - 1] > nums[mid]:
-    #             return nums[mid]
-    #         elif nums[mid] < first_elem:
-    #             right = mid -1
-    #         elif nums[mid] > first_elem:
-    #             left = mid + 1
 
 # leetcode submit region end(Prohibit modification and deletion)

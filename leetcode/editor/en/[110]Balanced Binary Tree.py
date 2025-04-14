@@ -49,13 +49,13 @@ class Solution:
             if not node:
                 return 0
 
-            left, right = dfs(node.left), dfs(node.right)
+            left, right = dfs(node.left), dfs(node.right)   # important
 
-            if left == -1 or right == -1 or abs(left - right) > 1:
+            if left == -1 or right == -1 or abs(left - right) > 1:  # important
                 return -1
 
-            return max(left, right) + 1
+            return max(left, right) + 1     # important
 
-        return dfs(root) != -1
+        return dfs(root) != -1      # important
         
 # leetcode submit region end(Prohibit modification and deletion)

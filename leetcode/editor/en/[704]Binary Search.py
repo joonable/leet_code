@@ -38,23 +38,8 @@
 from typing import List
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        # def binary_search(start_idx, end_idx): # TODO end_idx
-        #     if start_idx > end_idx:
-        #         return -1
-
-        #     mid_idx = (start_idx + end_idx) // 2
-        #     if nums[mid_idx] == target:
-        #         return mid_idx
-        #     elif nums[mid_idx] > target:
-        #         return binary_search(start_idx, mid_idx - 1)
-        #     else:
-        #         return binary_search(mid_idx + 1, end_idx)
-
-        # return binary_search(0, len(nums) - 1)
-
         left = 0
         right = len(nums) - 1
-
         while left <= right:
             mid = (left + right) // 2
             if nums[mid] == target:
@@ -63,5 +48,4 @@ class Solution:
                 left = mid + 1
             else:
                 right = mid - 1
-
         return -1

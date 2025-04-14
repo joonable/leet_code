@@ -58,7 +58,7 @@ class Solution:
                 list2 = list2.next
             curr = curr.next
 
-        # 남은 부분 연결
+        # 남은 부분 연결  # important
         curr.next = list1 or list2
 
         return head.next

@@ -53,7 +53,7 @@ class Solution:
                 return True
             if not left < node.val < right:
                 return False
-            return dfs(node.left, left, node.val) and dfs(node.right, node.val, right)
-        return dfs(root, -float('inf'), float('inf'))
+            return dfs(node.left, left, node.val) and dfs(node.right, node.val, right)  # important
+        return dfs(root, -float('inf'), float('inf'))   # important
 
 # leetcode submit region end(Prohibit modification and deletion)

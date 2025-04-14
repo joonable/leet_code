@@ -46,10 +46,10 @@ from typing import List, Optional
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         inorder_index = {val: idx for idx, val in enumerate(inorder)}
-        pre_idx = 0
+        pre_idx = 0 # important
 
-        def dfs(left, right):
-            if left > right:
+        def dfs(left, right):   # important
+            if left > right:    # important
                 return None
             nonlocal pre_idx
             root_val = preorder[pre_idx]

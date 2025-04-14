@@ -46,8 +46,8 @@ class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
             return None
-        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
-        return root
+        root.left, root.right = self.invertTree(root.right), self.invertTree(root.left) # important
+        return root # important
 
     # def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
     #     def dfs(node):
