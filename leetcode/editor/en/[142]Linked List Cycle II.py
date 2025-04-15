@@ -66,7 +66,7 @@ class Solution:
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-            if slow == fast:
+            if slow == fast:    # important
                 start = head
                 while start != slow:
                     slow = slow.next

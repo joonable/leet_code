@@ -52,8 +52,6 @@ class Solution:
         left = 0
         cur_sum = 0
 
-
-
         # We fix `right` by iterating with a for loop,
         for right in range(n): # important
             cur_sum += nums[right]

@@ -67,8 +67,8 @@ from heapq import heappop, heappush
 class MedianFinder:
 
     def __init__(self):
-        self.max_heap = []  # left side (as max heap)
-        self.min_heap = []  # right side (as min heap)
+        self.max_heap = []  # left side (as max heap) e.g. [-4, -3]
+        self.min_heap = []  # right side (as min heap) e.g. [5, 9]
 
     def addNum(self, num: int) -> None:
         # Step 1: Always push into max_heap first (as negative)
