@@ -96,5 +96,32 @@ class Solution:
                     dfs(r, c)
 
         return island_cnt
-        
+
+    def numDistinctIslands(self, grid: List[List[int]]) -> int:
+        directions = {
+            'U': (-1, 0),
+            'D': (1, 0),
+            'L': (0, -1),
+            'R': (0, 1)
+        }
+
+        def dfs(r, c, dir_letter):
+            if 0 <= r < rows and 0 <= c < cols and grid[r][c] == 1:
+                grid[r][c] = 0
+                path.append(dir_letter)
+                for d, (dr, dc) in directions.items():
+                    dfs(r + dr, c + dc, d)
+
+        rows, cols = len(grid), len(grid[0])
+        unique_shapes = set()
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1:
+                    path = []
+                    dfs(r, c, 'O')  # 'O' for origin
+                    unique_shapes.add(tuple(path))
+
+        return len(unique_shapes)
+
 # leetcode submit region end(Prohibit modification and deletion)
