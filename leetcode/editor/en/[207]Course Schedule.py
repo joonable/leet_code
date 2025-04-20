@@ -46,33 +46,33 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-from collections import deque, defaultdict
-from typing import List
+from collections import defaultdict, deque
+
 
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         in_degrees = [0] * numCourses
-        graph = defaultdict(list)
-        for prev_course, next_course in prerequisites:
-            in_degrees[next_course] += 1
-            graph[prev_course].append(next_course)
+        next_courses = defaultdict(list)
 
-        q = deque()
+        for next_course, prev_course in prerequisites:
+            in_degrees[next_course] += 1
+            next_courses[prev_course].append(next_course)
+
+        queue = deque()
         for course, in_degree in enumerate(in_degrees):
             if in_degree == 0:
-                q.append(course)
+                queue.append(course)
 
-        completed_course = 0
-        while q:
-            course = q.popleft()
-            completed_course += 1
-
-            for next_course in graph[course]:
+        completed_courses = 0
+        while queue:
+            prev_course = queue.popleft()
+            completed_courses += 1
+            for next_course in next_courses[prev_course]:
                 in_degrees[next_course] -= 1
                 if in_degrees[next_course] == 0:
-                    q.append(next_course)
+                    queue.append(next_course)
 
-        return completed_course == numCourses
+        return completed_courses == numCourses
 
         # # dfs
         # graph = defaultdict(list)
