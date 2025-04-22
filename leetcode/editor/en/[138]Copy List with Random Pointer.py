@@ -76,6 +76,11 @@ class Solution:
         if not head:
             return
 
+
+#         curr = head
+#         while curr:
+#             curr.next = Node(curr.val, curr.next)
+#             curr = curr.next.next
         curr = head
         while curr:
             copy = Node(curr.val)

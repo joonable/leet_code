@@ -61,35 +61,36 @@ class Solution:
     #         self.val = val
     #         self.left = left
     #         self.right = right
-    class Solution:
-        def flatten(self, root: Optional[TreeNode]) -> None:
-            def dfs(node):
-                nonlocal prev
-                if not node:
-                    return
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        prev = None  # 마지막으로 방문한 노드를 추적
 
-                dfs(node.right)
-                dfs(node.left)
+        def dfs(node):
+            nonlocal prev
+            if not node:
+                return
 
-                node.right = prev
-                node.left = None
-                prev = node
+            # 오른쪽부터 탐색해야 prev를 올바르게 연결할 수 있음 (preorder + 역순)
+            dfs(node.right)
+            dfs(node.left)
 
-            prev = None
-            dfs(root)
+            node.right = prev
+            node.left = None
+            prev = node
 
-        def flatten(self, root: Optional[TreeNode]) -> None:
-            """
-            Do not return anything, modify root in-place instead.
-            """
-            while root:
-                if root.left:
-                    left_node = root.left
-                    while left_node.right:
-                        left_node = left_node.right
-                    left_node.right = root.right
-                    root.right = root.left
-                    root.left = None
-                root = root.right
+        dfs(root)
+
+    # def flatten(self, root: Optional[TreeNode]) -> None:
+    #     """
+    #     Do not return anything, modify root in-place instead.
+    #     """
+    #     while root:
+    #         if root.left:
+    #             left_node = root.left
+    #             while left_node.right:
+    #                 left_node = left_node.right
+    #             left_node.right = root.right
+    #             root.right = root.left
+    #             root.left = None
+    #         root = root.right
 
 # leetcode submit region end(Prohibit modification and deletion)
