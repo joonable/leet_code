@@ -56,6 +56,10 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 from collections import defaultdict
 from bisect import bisect_right
+"""
+For each key, I store a sorted list of (timestamp, value) pairs. All the timestamps of set are strictly increasing.
+When calling get, I use binary search to find the closest timestamp which is less than or equal to the target.
+"""
 class TimeMap:
 
     def __init__(self):
@@ -68,11 +72,34 @@ class TimeMap:
         if key not in self.key_to_time_values:
             return ""
         time_value_pairs = self.key_to_time_values[key]
+        # bisect_right: return the rightmost index just after the target timestamp.
         index = bisect_right(time_value_pairs, (timestamp, chr(127)))   # important
         return time_value_pairs[index - 1][1] if index != 0 else ''   # important
 
-        
 
+class TicTacToe:
+    def __init__(self, n):
+        self.board_size = n
+        self.rows = [0] * self.board_size
+        self.cols = [0] * self.board_size
+        self.diagonal = 0
+        self.anti_diagonal = 0
+
+    def move(self, row: int, col: int, player: int) -> int:
+        move_val = -1 if player == 1 else 1
+        self.rows[row] += move_val
+        self.cols[col] += move_val
+        if row == col:
+            self.diagonal += move_val
+        if row + col == self.board_size - 1:
+            self.anti_diagonal += move_val
+
+        if abs(self.rows[row]) == self.board_size\
+            or abs(self.cols[col]) == self.board_size \
+            or abs(self.diagonal) == self.board_size \
+            or abs(self.anti_diagonal) == self.board_size:
+            return player
+        return 0
 
 # Your TimeMap object will be instantiated and called as such:
 # obj = TimeMap()

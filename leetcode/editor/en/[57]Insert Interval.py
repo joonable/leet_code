@@ -57,6 +57,12 @@ def meeting_rooms_252(intervals: List[List[int]]) -> List[List[int]]:
     return True
 
 def meeting_rooms_253(intervals: List[List[int]]) -> int:
+    '''
+    step-1: I’ll sort the start and end times separately,
+    step-2: I'll use two pointers to track how many meetings are happening at the same time.
+    step-3: If a meeting starts before another one ends, I’ll increment the room count. Otherwise, I’ll free up a room.
+    '''
+
     starts = []
     ends = []
     for interval in intervals:
