@@ -92,4 +92,45 @@ class Solution:
 
         return result if numCourses == 0 else []
 
+from collections import defaultdict
+def alien_dictionary_269(words):
+    next_chars = defaultdict(set)
+    in_degrees = dict()
+
+    # Step 1: 모든 문자 in_degrees에 등록
+    for word in words:
+        for ch in word:
+            in_degrees[ch] = 0  # important
+
+    # Step 2: 단어들 쌍 비교해서 그래프(edge) 만들기
+    for i in range(len(words) - 1):
+        prev_word = words[i]
+        next_word = words[i + 1]
+        if len(prev_word) >= len(next_word) \
+                and prev_word.startswith(next_word):
+            return ""
+
+        for p_ch, n_ch in zip(prev_word, next_word):
+            if p_ch != n_ch:
+                if n_ch not in next_chars[p_ch]:    # important
+                    next_chars[p_ch].add(n_ch)
+                    in_degrees[n_ch] += 1
+                break
+
+    # Step 3: Topological Sort
+    queue = deque([ch for ch, degree in in_degrees.items() if degree == 0])
+
+    result = []
+    while queue:
+        p_ch = queue.popleft()
+        result.append(p_ch)
+        for n_ch in next_chars[p_ch]:
+            in_degrees[n_ch] -= 1
+            if in_degrees[n_ch] == 0:
+                queue.append(n_ch)
+
+    # return "".join(result) if sum(in_degrees.values()) == 0 else ""
+    return "".join(result) if len(result) == len(in_degrees) else ""
+
+
 # leetcode submit region end(Prohibit modification and deletion)
