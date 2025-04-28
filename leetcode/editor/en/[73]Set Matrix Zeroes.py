@@ -58,7 +58,7 @@ class Solution:
 
         for r in range(1, m):
             for c in range(1, n):
-                if matrix[r][0] == 0 or matrix[0][c] == 0:
+                if matrix[r][0] == 0 or matrix[0][c] == 0:   # important
                     matrix[r][c] = 0
 
         if first_row_zero:

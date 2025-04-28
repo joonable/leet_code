@@ -7,8 +7,8 @@ class Node:
         self.is_end = is_end
         self.children = defaultdict(lambda: Node())
 
-
 class Trie:
+
     def __init__(self):
         self.head = Node()
 
@@ -19,19 +19,45 @@ class Trie:
         node.is_end = True
 
     def search(self, word: str) -> bool:
-        node = self._startsWith(self.head, word)
-        return node.is_end if node is not None else False
+        node = self.head
+        for ch in word:
+            if ch not in node.children:
+                return False
+            node = node.children[ch]
+        return node.is_end
 
     def startsWith(self, prefix: str) -> bool:
-        node = self._startsWith(self.head, prefix)
-        return True if node is not None else False
-
-    def _startsWith(self, node, prefix: str):
+        node = self.head
         for ch in prefix:
             if ch not in node.children:
-                return None
+                return False
             node = node.children[ch]
-        return node
+        return True
+
+# class Trie:
+#     def __init__(self):
+#         self.head = Node()
+#
+#     def insert(self, word: str) -> None:
+#         node = self.head
+#         for ch in word:
+#             node = node.children[ch]
+#         node.is_end = True
+#
+#     def search(self, word: str) -> bool:
+#         node = self._startsWith(self.head, word)
+#         return node.is_end if node is not None else False
+#
+#     def startsWith(self, prefix: str) -> bool:
+#         node = self._startsWith(self.head, prefix)
+#         return True if node is not None else False
+#
+#     def _startsWith(self, node, prefix: str):
+#         for ch in prefix:
+#             if ch not in node.children:
+#                 return None
+#             node = node.children[ch]
+#         return node
 
 # class Trie:
 #     def __init__(self):
