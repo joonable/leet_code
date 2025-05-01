@@ -49,7 +49,7 @@ class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         head = curr = ListNode()  # dummy node
 
-        while list1 and list2:
+        while list1 and list2:      # important
             if list1.val < list2.val:
                 curr.next = list1
                 list1 = list1.next
@@ -59,7 +59,7 @@ class Solution:
             curr = curr.next
 
         # 남은 부분 연결  # important
-        curr.next = list1 or list2
+        curr.next = list1 or list2      # important
 
         return head.next
 
