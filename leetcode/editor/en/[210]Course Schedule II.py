@@ -111,7 +111,7 @@ def alien_dictionary_269(words):
             return ""
 
         for p_ch, n_ch in zip(prev_word, next_word):
-            if p_ch != n_ch:
+            if p_ch != n_ch:     # important
                 if n_ch not in next_chars[p_ch]:    # important
                     next_chars[p_ch].add(n_ch)
                     in_degrees[n_ch] += 1
@@ -129,8 +129,6 @@ def alien_dictionary_269(words):
             if in_degrees[n_ch] == 0:
                 queue.append(n_ch)
 
-    # return "".join(result) if sum(in_degrees.values()) == 0 else ""
-    return "".join(result) if len(result) == len(in_degrees) else ""
-
+    return "".join(result) if len(result) == len(in_degrees) else "" # important
 
 # leetcode submit region end(Prohibit modification and deletion)

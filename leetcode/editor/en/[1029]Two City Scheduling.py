@@ -50,16 +50,40 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+
 class Solution:
     def twoCitySchedCost(self, costs: List[List[int]]) -> int:
-        costs.sort(key=lambda x: x[0] - x[1])
+        # Problem
+        # input: costs: List[List[int]] -> [aCost, bCost] -> cost to a and b respectively
+        # output: min_cost
+        # such that len(costs) == 2n, n -> a + n -> b
+
+        # Approach Greedy (sorting costs by diff(cost_a - cost_b))
+        # first half -> a, last half -> b
+        # [[259,770],[184,139],[577,469],[926,667],[448,54],[840,118]]
+        # [259 + 184 + 577 + 667 + 54 + 118]
+        # [443 + 1244 + 172] = 1859
 
         half = len(costs) // 2
-        result = 0
+        costs.sort(key=lambda x: x[0] - x[1])  # sort by diff
 
+        total_cost = 0
         for i, (a, b) in enumerate(costs):
-            result += a if i < half else b
+            cost = a if i < half else b
+            total_cost += cost
+        return total_cost
 
-        return result
+
+# class Solution:
+#     def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+#         costs.sort(key=lambda x: x[0] - x[1])
+#
+#         half = len(costs) // 2
+#         result = 0
+#
+#         for i, (a, b) in enumerate(costs):
+#             result += a if i < half else b
+#
+#         return result
         
 # leetcode submit region end(Prohibit modification and deletion)

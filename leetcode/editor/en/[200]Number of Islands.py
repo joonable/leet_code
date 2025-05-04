@@ -97,32 +97,95 @@ class Solution:
 
         return island_cnt
 
-    def numDistinctIslands(self, grid: List[List[int]]) -> int:
-        directions = {
-            'U': (-1, 0),
-            'D': (1, 0),
-            'L': (0, -1),
-            'R': (0, 1)
+
+    def numDistinctIslands_bfs_261(self, grid: List[List[int]]) -> int:
+        # Problem
+        # input: grid: List[List[int]] -> 0 = water, 1 = island
+        # output: n_distinct_islands in their shape
+        # island - one island can be translated (moved up/down/left/right)
+        # shape -rotation, reflection -> different islands
+
+        # Approach: bfs + set(based on relative position)
+        # result = set()
+        # for loop grid:
+        #   if 1 found -> add neighbours in the queue if the position is valid.
+        #   neighbours: left(-1, 0), right: (0, +1)...
+        #   temp = list(), append visited places based on the starting point.
+        #   queue empty -> result.add(temp)
+        # valid position: no index error, not visited
+        # visited: 1 -> 0 not to visit already visited places
+
+        n_rows = len(grid)
+        n_cols = len(grid[0])
+
+        queue = deque([])
+        result = set()
+
+        def get_neighbours(r, c):
+            return [(r - 1, c), (r, c - 1), (r + 1, c), (r, c + 1)]
+
+        def is_valid(r, c):
+            return 0 <= r < n_rows and 0 <= c < n_cols and grid[r][c] == 1
+
+
+
+        for i in range(n_rows):
+            for j in range(n_cols):
+                if grid[i][j] == 1:
+                    queue.append((i, j))
+                    grid[i][j] = 0
+                    path = [(0, 0)]
+                    while queue:
+                        r, c = queue.popleft()
+                          # visited
+                        for nr, nc in get_neighbours(r, c):
+                            if is_valid(nr, nc):
+                                grid[nr][nc] = 0
+                                queue.append((nr, nc))
+                                path.append((nr - i, nc - j))
+                    result.add(tuple(path))
+
+        return len(result)
+
+
+    def numDistinctIslands_dfs_261(self, grid: List[List[int]]) -> int:
+        # Problem
+        # input: grid: List[List[int]] -> 0 = water, 1 = island
+        # output: n_distinct_islands in their shape
+        # island - one island can be translated (moved up/down/left/right)
+        # shape -rotation, reflection -> different islands
+
+        n_rows = len(grid)
+        n_cols = len(grid[0])
+        result = set()
+
+        neighbours = {
+            "L": (-1, 0),
+            "U": (0, 1),
+            "R": (1, 0),
+            "D": (0, -1)
         }
 
-        def dfs(r, c, dir_letter):
-            if 0 <= r < rows and 0 <= c < cols and grid[r][c] == 1:
-                grid[r][c] = 0
-                path.append(dir_letter)
-                for d, (dr, dc) in directions.items():
-                    dfs(r + dr, c + dc, d)
+        def is_valid(r, c):
+            return 0 <= r < n_rows and 0 <= c < n_cols and grid[r][c] == 1
 
-        rows, cols = len(grid), len(grid[0])
-        unique_shapes = set()
+        def dfs(r, c, d):   # important
+            grid[r][c] = 0
+            path.append(d)
+            for d, (dr, dc) in neighbours.items():
+                nr, nc = r + dr, c + dc
+                if is_valid(nr, nc):
+                    dfs(nr, nc, d)
 
-        for r in range(rows):
-            for c in range(cols):
+        for r in range(n_rows):
+            for c in range(n_cols):
                 if grid[r][c] == 1:
                     path = []
-                    dfs(r, c, 'O')  # 'O' for origin
-                    unique_shapes.add(tuple(path))
+                    dfs(r, c, 'O')  # important
+                    result.add(tuple(path)) # important
 
-        return len(unique_shapes)
+        return len(result)
+
 
 from collections import deque
 def wall_and_gate_238(grid):

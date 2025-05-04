@@ -42,6 +42,7 @@
 #         self.left = left
 #         self.right = right
 from collections import deque
+from operator import itemgetter
 from typing import List, Optional
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
@@ -61,5 +62,27 @@ class Solution:
                     queue.append(node.right)
             result.append(level_values)
         return result
+
+    def binary_tree_vertical_order_traversal_102(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        from collections import defaultdict, deque
+        result = defaultdict(list)
+        queue = deque([(root, 0)])
+
+        while queue:
+            node, col = queue.popleft()
+            result[col].append(node.val)
+            if node.left:
+                queue.append((node.left, col - 1))
+            if node.right:
+                queue.append((node.right, col + 1))
+
+        return [val for key, val in sorted(result.items(), key=lambda x: x[0])]
+
+
+
+
+
 
 # leetcode submit region end(Prohibit modification and deletion)

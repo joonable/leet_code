@@ -45,30 +45,36 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class UnionFind:
-    def __init__(self, size):
-        self.parent = list(range(size))
+    def __init__(self, n):
+        self.parent = list(range(n))
+
     def find(self, x):
         if self.parent[x] != x:
-            self.parent[x] = self.find(self.parent[x]) # path compression
+            self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
 
     def union(self, x, y):
-        root_x = self.parent[x]
-        root_y = self.parent[y]
+        root_x = self.find(x)
+        root_y = self.find(y)
         if root_x != root_y:
             self.parent[root_x] = root_y
             return True
-        else:
-            return False
+        return False
+
 
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        n = len(edges) # tree edges = (n - 1) + cycle edge 1
-        uf = UnionFind(n + 1) # 1-index
+        # input: len(edges) = n
+        # -> supposed to be n - 1 if it doesn't have a cycle in the graph
+        # output: we need return the edge making a cycle
+        # constraints: 1-index
+
+        # UnionFind -> dectect a cycle
+        # union(x, y) -> bool: if True (= already connected) x, y is the edge making a cycle
+
+        uf = UnionFind(len(edges) + 1)  # 1-index
         for x, y in edges:
-            root_x = uf.find(x)
-            root_y = uf.find(y)
-            if not uf.union(root_x, root_y):
+            if not uf.union(x, y):
                 return [x, y]
 
 
