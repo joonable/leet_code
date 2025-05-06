@@ -68,7 +68,7 @@ class Solution:
                     right -= 1
                 else:
                     result.append([nums[i], nums[left], nums[right]])
-                    left, right = left + 1, right - 1
+                    left, right = left + 1, right - 1       # important
 
                     # important
                     while left < right and nums[left] == nums[left - 1]:

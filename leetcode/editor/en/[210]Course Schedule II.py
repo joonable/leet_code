@@ -84,13 +84,12 @@ class Solution:
         while queue:
             prev_course = queue.popleft()
             result.append(prev_course)
-            numCourses -= 1
             for next_course in next_courses[prev_course]:
                 in_degrees[next_course] -= 1
                 if in_degrees[next_course] == 0:
                     queue.append(next_course)
 
-        return result if numCourses == 0 else []
+        return result if len(result) == numCourses else []
 
 from collections import defaultdict
 def alien_dictionary_269(words):

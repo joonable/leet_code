@@ -45,6 +45,12 @@ c_i:5, c_h:3 -> append
 
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
+        """
+        왜 “Increasing Stack”이냐?
+	    •	우리는 “현재 바보다 높은 바들이 어디까지 계속 있었는지” 추적해야 .
+	    •	만약 현재 바가 낮아지면, 이전 바들을 기준으로 직사각형을 만들어볼 수 있는 시점
+	    •	그래서 stack에는 height가 증가하는 인덱스만 쌓음
+        """
         stack = []
         max_area = 0
         heights.append(0) # important
@@ -53,6 +59,8 @@ class Solution:
                 prev_index = stack.pop()
                 prev_height = heights[prev_index]
                 width = curr_index if not stack else curr_index - stack[-1] - 1 # important
+                # 스택이 비었을 때는 왼쪽에 아무 벽도 없다는 뜻 (즉, 지금까지 모든 막대들이 다 높거나 같은 애들이었음)
+                # → 전체 폭으로 직사각형 만들어도 된다는 뜻
                 area = prev_height * width
                 max_area = max(area, max_area)
             stack.append(curr_index)

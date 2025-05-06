@@ -41,10 +41,21 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-from collections import deque
-from operator import itemgetter
+from collections import defaultdict, deque
 from typing import List, Optional
 class Solution:
+    def levelOrder_dfs(self, root: Optional[TreeNode]) -> List[List[int]]:
+        result = defaultdict(list)
+        def dfs(node, level):
+            if not node:
+                return
+            result[level].append(node.val)
+            dfs(node.left, level + 1)
+            dfs(node.right, level + 1)
+        dfs(root, 0)
+        result = [result[key] for key in sorted(result.keys())]
+        return result
+
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
@@ -63,10 +74,10 @@ class Solution:
             result.append(level_values)
         return result
 
-    def binary_tree_vertical_order_traversal_102(self, root: Optional[TreeNode]) -> List[List[int]]:
+    def level_order_bfs(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
-        from collections import defaultdict, deque
+
         result = defaultdict(list)
         queue = deque([(root, 0)])
 

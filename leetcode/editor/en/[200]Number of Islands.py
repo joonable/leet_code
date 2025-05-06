@@ -188,7 +188,7 @@ class Solution:
 
 
 from collections import deque
-def wall_and_gate_238(grid):
+def wall_and_gate_286(grid):
     rows, cols = len(grid), len(grid[0])
     INF = 2 ** 31 - 1
 
@@ -204,14 +204,12 @@ def wall_and_gate_238(grid):
             if grid[r][c] == 0:
                 queue.append((r, c))
 
-    level = 0
     while queue:
-        level += 1
         for _ in range(len(queue)):
             r, c = queue.popleft()
             for nr, nc in get_neighbours(r, c):
                 if is_valid(nr, nc) and grid[nr][nc] == INF:
-                    grid[nr][nc] = level
+                    grid[nr][nc] = grid[r][c] + 1
                     queue.append((nr, nc))
     return grid
 

@@ -43,28 +43,34 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x != root_y:
+            self.parent[root_x] = root_y
+            return True
+        return False
+
+
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
         n = len(isConnected)
-        parent = [i for i in range(n)]
+        uf = UnionFind(n)
+        for r in range(n):
+            for c in range(n):
+                if isConnected[r][c]:
+                    uf.union(r, c)
 
-        def find(x):
-            if parent[x] != x:
-                parent[x] = find(parent[x])  # important - path compression
-            return parent[x]
-
-        def union(x, y):
-            root_x = find(x)
-            root_y = find(y)
-            if root_x != root_y:    # important
-                parent[root_x] = parent[root_y]
-
-        for i in range(n):
-            for j in range(i + 1, n):
-                if isConnected[i][j] == 1:
-                    union(i, j)
-
-        return len(set(find(i) for i in range(n)))  # important
+        return len(set(uf.find(p) for p in uf.parent))
 
 # class Solution:
 #     def findCircleNum(self, isConnected: List[List[int]]) -> int:

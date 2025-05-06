@@ -71,43 +71,9 @@ from typing import List
 
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-
-        # k = 0
-        # n_dup = 1
-        # for n in nums[1:]:
-        #     if n_dup < 2:
-        #         if nums[k] == n:
-        #             k += 1
-        #             nums[k] = n
-        #             n_dup += 1
-        #         else:
-        #             k += 1
-        #             nums[k] = n
-        #             n_dup = 1
-        #     else:
-        #         if nums[k] == n:
-        #             n_dup += 1
-        #         else:
-        #             k += 1
-        #             nums[k] = n
-        #             n_dup = 1
-        #     # print(n, k, n_dup, nums[:k+1])
-
-
-        # k = 0
-        # is_duplicate = False
-        # for n in nums[1:]:
-        #     if not is_duplicate or nums[k] != n:
-        #         is_duplicate = nums[k] == n
-        #         k += 1
-        #         nums[k] = n
-        #     else:
-        #         is_duplicate = nums[k] == n
-        # return k+1
-
-        ptr = 0
-        for num in nums:
-            if ptr < 2 or nums[ptr - 2] != num:
+        ptr = 0     # important
+        for num in nums:    # important
+            if ptr < 2 or nums[ptr - 2] != num: # important
                 nums[ptr] = num
                 ptr += 1
         return ptr

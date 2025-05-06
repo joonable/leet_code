@@ -71,59 +71,32 @@ class Node:
         self.random = random
 """
 
+
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
-            return
-
-
-#         curr = head
-#         while curr:
-#             curr.next = Node(curr.val, curr.next)
-#             curr = curr.next.next
+            return None
         curr = head
+
         while curr:
-            copy = Node(curr.val)
-            copy.next = curr.next     # important
-            curr.next = copy
-            curr = copy.next
+            copy = Node(curr.val, curr.next)  # A' -> B
+            curr.next = copy  # A -> A'
+            curr = copy.next  # A = B
 
         curr = head
         while curr:
-            copy = curr.next
+            copy = curr.next  # A'
             if curr.random:
-                copy.random = curr.random.next  # important
-            curr = curr.next.next
+                copy.random = curr.random.next
+                # such that A.random = B, A.random.next == A'.random
+            curr = copy.next  # A = B
 
-        # important
         curr = head
-        copy_head = head.next
-
+        copy_head = head.next   # important
         while curr:
-            copy = curr.next
-            curr.next = copy.next
-            copy.next = copy.next.next if copy.next else None  # important
-            curr = curr.next
-
-        return copy_head
-
-        # if not head:
-        #     return None
-
-        # old_to_new = {}
-
-        # # Step 1: 복사본 생성 (val만 복사)
-        # curr = head
-        # while curr:
-        #     old_to_new[curr] = Node(curr.val)
-        #     curr = curr.next
-
-        # # Step 2: next, random 연결
-        # curr = head
-        # while curr:
-        #     old_to_new[curr].next = old_to_new.get(curr.next)
-        #     old_to_new[curr].random = old_to_new.get(curr.random)
-        #     curr = curr.next
-
-        # return old_to_new[head]
+            copy = curr.next  # A'
+            curr.next = curr.next.next  # A -> B    # important
+            copy.next = copy.next.next if copy.next else None  # A' -> B'   # important
+            curr = curr.next  # A = B
+        return copy_head    # important
 # leetcode submit region end(Prohibit modification and deletion)

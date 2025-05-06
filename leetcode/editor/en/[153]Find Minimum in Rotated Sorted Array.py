@@ -61,6 +61,19 @@ class Solution:
         left = 0
         right = len(nums) - 1
 
+        while left < right:
+            mid = (left + right) // 2
+            # mid가 속한 쪽이 왼쪽 sorted라면, 최소는 오른쪽에 있음
+            if nums[mid] > nums[right]:
+                left = mid + 1
+            else:
+                right = mid  # mid도 후보에 포함
+        return nums[left]
+
+    def findMin(self, nums: List[int]) -> int:
+        left = 0
+        right = len(nums) - 1
+
         if nums[left] < nums[right]:
             return nums[0]
 

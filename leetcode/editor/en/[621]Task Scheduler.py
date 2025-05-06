@@ -77,7 +77,7 @@ class Solution:
             else:
                 pass
 
-        cpu_intervals = (max_count - 1) * (n + 1) + max_count_tasks
+        cpu_intervals = (max_count - 1) * (n + 1) + max_count_tasks # import
         return max(cpu_intervals, len(tasks))
         
 # leetcode submit region end(Prohibit modification and deletion)

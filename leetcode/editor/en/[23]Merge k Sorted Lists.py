@@ -67,7 +67,7 @@ class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         heap = []
         for i, head in enumerate(lists):
-            if head:
+            if head:    # important
                 heap.append((head.val, i, head))    # important
         heapify(heap)
 
@@ -75,7 +75,7 @@ class Solution:
         while heap:
             _, i, node = heappop(heap)
             head.next = node
-            node = node.next
+            node = node.next    # important
             head = head.next
             if node:    # important
                 heappush(heap, (node.val, i, node))

@@ -62,38 +62,41 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 from collections import defaultdict
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, x, y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x != root_y:
+            self.parent[root_x] = root_y
+            return True
+        return False
+
 
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
-        def find(x: int) -> int:
-            if parent[x] != x:
-                parent[x] = find(parent[x])
-            return parent[x]
-
         n = len(accounts)
-        parent = list(range(n))
-        email_to_id = {}
+        uf = UnionFind(n)
+        email_to_id = {}    # important
 
-        # Union: 같은 이메일을 공유하는 계정들 연결
         for i, account in enumerate(accounts):
-            for email in account[1:]:
-                if email in email_to_id:
-                    parent[find(i)] = find(email_to_id[email])
+            name, emails = account[0], account[1:]
+            for email in emails:
+                if email in email_to_id:    # important
+                    uf.union(email_to_id[email], i) # important
                 else:
                     email_to_id[email] = i
 
-        # root 계정별로 이메일 그룹 수집
-        merged = defaultdict(set)
-        for i, account in enumerate(accounts):
-            root_i = find(i)
-            for email in account[1:]:
-                merged[root_i].add(email)
+        id_to_emails = defaultdict(list)    # important
+        for email, i in email_to_id.items():
+            id_to_emails[uf.find(i)].append(email)
 
-        # 결과 구성
-        result = []
-        for root_i, email_set in merged.items():
-            name = accounts[root_i][0]
-            result.append([name] + sorted(email_set))
-
-        return result
+        return [[accounts[i][0]] + sorted(emails) for i, emails in id_to_emails.items()]
 # leetcode submit region end(Prohibit modification and deletion)

@@ -133,23 +133,20 @@ class Solution:
 
 class Solution_277:
     def get_celebrity(self, n: int) -> int:
-        def knows(x, y) -> bool:
+        def knows(a, b):
             ...
 
         celebrity = 0
         for candidate in range(1, n):
             if knows(celebrity, candidate):
-                celebrity = candidate
+                celebrity = candidate   # important
 
-        for candidate in range(n):
-            if candidate == celebrity:
-                continue
-            # if knows(celebrity, candidate) or not knows(candidate, celebrity):
-            #     return -1
-            if knows(candidate, celebrity) and not knows(celebrity, candidate):
-                continue
-            return -1
-        return celebrity
+        is_celebrity = all(
+            knows(non_celebrity, celebrity) and not knows(celebrity, non_celebrity)
+            for non_celebrity in range(n)
+            if non_celebrity != celebrity
+        )
+        return celebrity if is_celebrity else -1
 
 
 
@@ -210,7 +207,9 @@ class Solution_261:
                 return False
 
         # roots = set(uf.find(i) for i in range(n))
-        return uf.n_roots == 1 # important
+        return uf.n_roots == 1 # impo
+
+
 
 
 # leetcode submit region end(Prohibit modification and deletion)

@@ -49,6 +49,7 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 import random
+from typing import List
 
 class Solution:
     """

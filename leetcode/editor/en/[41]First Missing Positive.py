@@ -48,10 +48,12 @@ class Solution:
         # Step 1: 각 숫자를 자신의 위치 (val -> index val-1)로 이동
         for i in range(n):
             correct_index = nums[i] - 1  # important
+            # swap한 그 자리의 새 숫자가 또 유효한 값이면, 그 숫자도 제자리로 보내야 하니까 while로 반복
             while 1 <= nums[i] <= n \
                     and nums[correct_index] != nums[i]:  # important
                 correct_index = nums[i] - 1
                 nums[i], nums[correct_index] = nums[correct_index], nums[i]
+
 
         # Step 2: 첫 번째로 불일치하는 index를 찾기 → 그 자리에 있어야 할 숫자가 없음
         for i, num in enumerate(nums):

@@ -58,10 +58,9 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
 
-        prev = None
         curr = slow.next # important
         slow.next = None  # important
-
+        prev = None
         while curr:
             next_node = curr.next
             curr.next = prev
@@ -76,7 +75,7 @@ class Solution:
             next_second_node = second.next
 
             first.next = second
-            second.next = next_first_node
+            second.next = next_first_node   # important
 
             first = next_first_node
             second = next_second_node

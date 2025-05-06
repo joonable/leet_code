@@ -31,6 +31,10 @@
 from typing import List
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        """
+        왜 decreasing?
+	    stack에는 크기 기준으로 내림차순이 쌓여야, 현재 값이 더 크면, 쌓아둔 작은 애들을 pop하며 계산할 수 있음
+        """
         n = len(temperatures)
         answer = [0] * n
         stack = []

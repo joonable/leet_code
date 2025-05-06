@@ -69,22 +69,42 @@ class WordDictionary:
         node.is_end = True  # important
 
     def search(self, word: str) -> bool:
-        def _dfs(word: str, node: Node) -> bool:
-            if not word:
-                return node.is_end  # important
+        node = self.root
+        n = len(word)
 
-            ch = word[0]
-            if ch != '.':
-                if ch not in node.children:
-                    return False
-                return _dfs(word[1:], node.children[ch])
+        def dfs(node, i):
+            if i >= n:
+                return node.is_end
+
+            ch = word[i]
+            if ch != ".":
+                if ch in node.children:
+                    return dfs(node.children[ch], i + 1)
             else:
-                for child in node.children.values():    # important
-                    if _dfs(word[1:], child):   # important
+                for child in node.children.values():
+                    if dfs(child, i + 1):
                         return True
-                return False
+            return False
 
-        return _dfs(word, self.root)
+        return dfs(node, 0)
+
+    # def search(self, word: str) -> bool:
+    #     def _dfs(word: str, node: Node) -> bool:
+    #         if not word:
+    #             return node.is_end  # important
+    #
+    #         ch = word[0]
+    #         if ch != '.':
+    #             if ch not in node.children:
+    #                 return False
+    #             return _dfs(word[1:], node.children[ch])
+    #         else:
+    #             for child in node.children.values():    # important
+    #                 if _dfs(word[1:], child):   # important
+    #                     return True
+    #             return False
+    #
+    #     return _dfs(word, self.root)
 
 
 # Your WordDictionary object will be instantiated and called as such:

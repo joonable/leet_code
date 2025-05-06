@@ -56,7 +56,7 @@
 class UnionFind:
     def __init__(self, size):
         self.parent = list(range(size))
-        self.count = size
+        self.components = size
 
     def find(self, x):
         if self.parent[x] != x:
@@ -67,10 +67,7 @@ class UnionFind:
         root_x, root_y = self.find(x), self.find(y)
         if root_x != root_y:
             self.parent[root_x] = root_y
-            self.count -= 1  # important
-
-    def get_component_count(self):
-        return self.count
+            self.components -= 1  # important
 
 
 class Solution:
@@ -81,14 +78,14 @@ class Solution:
         uf = UnionFind(n)
         for a, b in connections:
             uf.union(a, b)
+        return uf.components - 1
 
-        return uf.get_component_count() - 1
 
+class Solution_323:
     def connected_components_323(self, n: int, edges: List[List[int]]) -> int:
         uf = UnionFind(n)
         for a, b in edges:
             uf.union(a, b)
-
-        return uf.get_component_count()
+        return uf.components
 
 # leetcode submit region end(Prohibit modification and deletion)

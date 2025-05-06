@@ -35,24 +35,37 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def trap(self, height: List[int]) -> int:
-        left = 0
-        right = len(height) - 1
-        max_left = 0
-        max_right = 0
-        result = 0
+        """
+        ✅ One-line summary
+        We move from both ends to the center,
+        and always calculate trapped water at the lower wall side.
+
+        🔍 3 Key Points (Simple English)
+            1.	Water can only be trapped if there are taller walls on both sides.
+            2.	At each step, we look at which side is lower, and move that side.
+            3.	We keep track of the highest wall seen so far, and trap water based on the difference.
+        """
+        # if not height or len(height) < 3:
+        #     return 0
+
+        left, right = 0, len(height) - 1
+        left_max = right_max = 0
+        water = 0
 
         while left < right:
             if height[left] < height[right]:
-                if height[left] >= max_left: # important
-                    max_left = height[left]
+                # 왼쪽이 더 낮으면 왼쪽을 기준으로 물 계산
+                if height[left] >= left_max: # important
+                    left_max = height[left]
                 else:
-                    result += max_left - height[left]
+                    water += left_max - height[left]
                 left += 1
             else:
-                if height[right] >= max_right:
-                    max_right = height[right]
+                # 오른쪽이 더 낮으면 오른쪽을 기준으로 물 계산
+                if height[right] >= right_max:
+                    right_max = height[right]
                 else:
-                    result += max_right - height[right]
+                    water += right_max - height[right]
                 right -= 1
-        return result
+        return water
 # leetcode submit region end(Prohibit modification and deletion)

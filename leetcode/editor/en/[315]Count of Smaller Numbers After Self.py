@@ -45,10 +45,10 @@ class Solution:
     def countSmaller(self, nums: List[int]) -> List[int]:
         n = len(nums)
         result = [0] * n
-        enum = list(enumerate(nums))
+        enum = list(enumerate(nums))    # important
 
         def merge_sort(start, end):
-            if end - start <= 1:
+            if end - start <= 1:    # important
                 return enum[start:end]  # base case: 하나짜리 배열
 
             mid = (start + end) // 2
@@ -63,7 +63,7 @@ class Solution:
                 # right[j]가 더 작으면: left[i]보다 먼저 나올 작고 오른쪽에 있는 수
                 if left[i][1] <= right[j][1]:
                     # j개 만큼 작은 수가 이미 나온 것 → 카운트 누적
-                    result[left[i][0]] += j
+                    result[left[i][0]] += j     # important
                     merged.append(left[i])
                     i += 1
                 else:
