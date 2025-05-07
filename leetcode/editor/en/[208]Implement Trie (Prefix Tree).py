@@ -1,38 +1,35 @@
 from collections import defaultdict
 
-
 class Node:
-    def __init__(self, is_end=False):
-        # important: key == value 이므로 value 불필요
-        self.is_end = is_end
-        self.children = defaultdict(lambda: Node())
-
-class Trie:
-
     def __init__(self):
-        self.head = Node()
+        self.is_end = False
+        self.children = defaultdict(Node)
 
-    def insert(self, word: str) -> None:
-        node = self.head
+class Trie():
+    def __init__(self):
+        self.root = Node()
+
+    def insert(self, word):
+        node = self.root
         for ch in word:
             node = node.children[ch]
         node.is_end = True
 
-    def search(self, word: str) -> bool:
-        node = self.head
-        for ch in word:
-            if ch not in node.children:
-                return False
-            node = node.children[ch]
-        return node.is_end
-
-    def startsWith(self, prefix: str) -> bool:
-        node = self.head
+    def _starts_with(self, prefix):
+        node = self.root
         for ch in prefix:
             if ch not in node.children:
-                return False
+                return None
             node = node.children[ch]
-        return True
+        return node
+
+    def start_with(self, prefix):
+        node = self._starts_with(prefix)
+        return node is not None
+
+    def search(self, word):
+        node = self._starts_with(word)
+        return node.is_end if node else False
 
 # class Trie:
 #     def __init__(self):

@@ -58,7 +58,7 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
 
-        curr = slow.next # important
+        curr = slow.next    # important 반으로 나누는게 아님 무조건 second가 짧게
         slow.next = None  # important
         prev = None
         while curr:
@@ -67,18 +67,18 @@ class Solution:
             prev = curr
             curr = next_node
 
+        # first = 0->1->4 second = 3
         first = head
         second = prev
+        while second:
+            first_next = first.next  # (1 -> 4)
+            second_next = second.next  # None
 
-        while second:  # important
-            next_first_node = first.next
-            next_second_node = second.next
+            first.next = second  # 0 -> 3
+            second.next = first_next  # 0 -> 3 -> (1 -> 4)
 
-            first.next = second
-            second.next = next_first_node   # important
-
-            first = next_first_node
-            second = next_second_node
+            second = second_next  # None
+            first = first_next  # (1 -> 4)
 
         return head
         

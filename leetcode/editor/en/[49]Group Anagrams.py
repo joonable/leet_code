@@ -36,7 +36,7 @@ class Solution:
         Runtime:85 ms, faster than 78.17% of Python3 online submissions.
         Memory Usage:19.4 MB, less than 88.89% of Python3 online submissions.
         """
-        # O(n * k) 방식
+        # 시간복잡도: O(n * k log k), 공간 복잡도 O(n * k)
         dict_str = {}
         for _str in strs:
             sorted_str = "".join(sorted(_str))

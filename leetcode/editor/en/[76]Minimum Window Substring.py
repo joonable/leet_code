@@ -66,7 +66,7 @@ class Solution:
                     matched += 1
 
             while matched == len(need):
-                if not result or len(result) > right - left :    # important
+                if not result or len(result) > right - left:    # important
                     result = s[left:right + 1]
 
                 left_ch = s[left]

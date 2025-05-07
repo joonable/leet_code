@@ -73,9 +73,9 @@
 class BSTIterator:
     def __init__(self, root: TreeNode):
         self.stack = []
-        self._leftmost_inorder(root)
+        self._leftmost_inorder(root)    # important
 
-    def _leftmost_inorder(self, node):
+    def _leftmost_inorder(self, node):  # important
         """BST의 가장 왼쪽 노드까지 스택에 저장"""
         while node:
             self.stack.append(node)
@@ -86,10 +86,10 @@ class BSTIterator:
         가장 작은 현재 노드를 반환하고,
         그 노드의 오른쪽 서브트리를 왼쪽 끝까지 탐색
         """
-        top_node = self.stack.pop()
-        if top_node.right:
-            self._leftmost_inorder(top_node.right)
-        return top_node.val
+        node = self.stack.pop()
+        if node.right:  # important
+            self._leftmost_inorder(node.right)  # important
+        return node.val
 
     def hasNext(self) -> bool:
         """스택에 노드가 남아있는지 확인"""

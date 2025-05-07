@@ -62,23 +62,44 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
+
     def evalRPN(self, tokens: List[str]) -> int:
-        stack = []
-        for token in tokens:
-            if token.lstrip('-').isdigit():   # important
-                stack.append(int(token))
+        digit_stack = []
+        operators = {"-", "+", "/", "*"}
+
+        for t in tokens:
+            if t in operators:
+                y = digit_stack.pop()
+                x = digit_stack.pop()
+                if t == "-":
+                    val = x - y
+                elif t == '+':
+                    val = x + y
+                elif t == '*':
+                    val = x * y
+                else:
+                    val = int(x / y)
+                digit_stack.append(val)
             else:
-                num2 = stack.pop()
-                num1 = stack.pop()
-                if token == "*":
-                    x = num1 * num2
-                elif token == "-":
-                    x = num1 - num2
-                elif token == "/":
-                    x = int(num1 / num2)
-                elif token == "+":
-                    x = num1 + num2
-                stack.append(x)
-        return stack[-1]
+                digit_stack.append(int(t))
+        return digit_stack[0]
+    # def evalRPN(self, tokens: List[str]) -> int:
+    #     stack = []
+    #     for token in tokens:
+    #         if token.lstrip('-').isdigit():   # important
+    #             stack.append(int(token))
+    #         else:
+    #             num2 = stack.pop()
+    #             num1 = stack.pop()
+    #             if token == "*":
+    #                 x = num1 * num2
+    #             elif token == "-":
+    #                 x = num1 - num2
+    #             elif token == "/":
+    #                 x = int(num1 / num2)
+    #             elif token == "+":
+    #                 x = num1 + num2
+    #             stack.append(x)
+    #     return stack[-1]
         
 # leetcode submit region end(Prohibit modification and deletion)

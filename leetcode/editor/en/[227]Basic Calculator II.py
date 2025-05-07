@@ -46,9 +46,7 @@ class Solution:
         sign = '+'  # important
 
         for ch in s + '+':  # important
-            if ch == ' ':
-                continue
-            elif ch.isdigit():
+            if ch.isdigit():
                 num = num * 10 + int(ch)    # important
             elif ch in '+-*/':
                 if sign == '+':
@@ -61,6 +59,8 @@ class Solution:
                     stack.append(int(stack.pop() / num)) # important
                 num = 0
                 sign = ch
+            else:
+                pass
 
         return sum(stack)
 # leetcode submit region end(Prohibit modification and deletion)

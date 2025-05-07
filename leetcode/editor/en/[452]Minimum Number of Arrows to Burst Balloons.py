@@ -60,7 +60,7 @@ class Solution:
         # 가장 먼저 끝나는 풍선부터 고려하면서, 화살의 최적 위치를 그 풍선의 끝 지점에 쏘면,
         # 그 위치와 겹치는 모든 풍선을 한꺼번에 제거할 수 있음.
         # x[0]반례 = [[1,10], [2,3], [4,5], [6,7]]
-        points.sort(key=lambda x: x[1])
+        points.sort(key=lambda x: x[1])     # important
         prev_arrow_pos = -float('inf')
         n_arrow = 0
         for start, end in points:

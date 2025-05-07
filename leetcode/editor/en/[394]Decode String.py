@@ -54,16 +54,16 @@ class Solution:
         num_stack = []
 
         cur_str = ''
-        cur_num = ''
+        cur_num = 0
 
         for ch in s:
             if ch.isdigit():
-                cur_num += ch
+                cur_num = cur_num * 10 + int(ch)
             elif ch == '[':
                 str_stack.append(cur_str)
                 num_stack.append(int(cur_num))
                 cur_str = ''
-                cur_num = ''
+                cur_num = 0
             elif ch == ']':
                 prev_str = str_stack.pop()
                 repeat = num_stack.pop()

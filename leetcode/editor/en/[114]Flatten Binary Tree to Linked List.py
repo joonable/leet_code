@@ -61,7 +61,25 @@ class Solution:
     #         self.val = val
     #         self.left = left
     #         self.right = right
-    def flatten(self, root: Optional[TreeNode]) -> None:
+
+    def flatten_iterative(self, root: Optional[TreeNode]) -> None:
+        if not root:
+            return
+
+        stack = [root]
+        while stack:
+            node = stack.pop()
+
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+
+            if stack:
+                node.right = stack[-1]
+            node.left = None
+
+    def flatten_dfs(self, root: Optional[TreeNode]) -> None:
         prev = None  # 마지막으로 방문한 노드를 추적
 
         def dfs(node):

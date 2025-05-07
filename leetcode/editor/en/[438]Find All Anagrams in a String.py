@@ -37,45 +37,73 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 from collections import Counter, defaultdict
 
-
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
-        if len(s) < len(p):
-            return []
-
-        need = Counter(p)
-        window = defaultdict(int)
-        valid = 0
-        result = []
         window_size = len(p)
+        necessary = Counter(p)
+        windows = defaultdict(int)
+        matched = 0
 
-        for i in range(window_size):
-            ch = s[i]
-            if ch in need:
-                window[ch] += 1
-                if window[ch] == need[ch]:
-                    valid += 1
+        result = []
+        for right, right_ch in enumerate(s):
+            # 추가
+            if right_ch in necessary:  # important
+                windows[right_ch] += 1
+                if windows[right_ch] == necessary[right_ch]:
+                    matched += 1
 
-        if valid == len(need):
-            result.append(i - window_size + 1)
+            if right >= window_size - 1:  # important
+                # 검증
+                left = right - window_size + 1
+                if matched == len(necessary):
+                    result.append(left)
 
-        for i in range(window_size, len(s)):
-            ch = s[i]
-            if ch in need:
-                window[ch] += 1
-                if window[ch] == need[ch]:
-                    valid += 1
-
-            prev_ch = s[i - window_size]
-            if prev_ch in need:
-                if window[prev_ch] == need[prev_ch]:
-                    valid -= 1
-                window[prev_ch] -= 1
-
-            if valid == len(need):
-                result.append(i - window_size + 1)
+                # 삭제
+                left_ch = s[left]
+                if left_ch in necessary:
+                    if windows[left_ch] == necessary[left_ch]:
+                        matched -= 1
+                    windows[left_ch] -= 1
 
         return result
+
+    # def findAnagrams(self, s: str, p: str) -> List[int]:
+    #     if len(s) < len(p):
+    #         return []
+    #
+    #     need = Counter(p)
+    #     window = defaultdict(int)
+    #     valid = 0
+    #     result = []
+    #     window_size = len(p)
+    #
+    #     for i in range(window_size):
+    #         ch = s[i]
+    #         if ch in need:
+    #             window[ch] += 1
+    #             if window[ch] == need[ch]:
+    #                 valid += 1
+    #
+    #     if valid == len(need):
+    #         result.append(i - window_size + 1)
+    #
+    #     for i in range(window_size, len(s)):
+    #         ch = s[i]
+    #         if ch in need:
+    #             window[ch] += 1
+    #             if window[ch] == need[ch]:
+    #                 valid += 1
+    #
+    #         prev_ch = s[i - window_size]
+    #         if prev_ch in need:
+    #             if window[prev_ch] == need[prev_ch]:
+    #                 valid -= 1
+    #             window[prev_ch] -= 1
+    #
+    #         if valid == len(need):
+    #             result.append(i - window_size + 1)
+    #
+    #     return result
 
     # def findAnagrams(self, s: str, p: str) -> List[int]:
     #     if len(p) > len(s):

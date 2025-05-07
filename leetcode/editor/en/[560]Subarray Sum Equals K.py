@@ -29,13 +29,13 @@ from collections import defaultdict
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         result = 0
-        count_dict = defaultdict(int)
-        count_dict[0] = 1
-        prefix_sum = 0
+        prefix_sums = defaultdict(int)
+        prefix_sums[0] = 1
+        curr_sum = 0
         for num in nums:
-            prefix_sum += num
-            result += count_dict[prefix_sum - k]
-            count_dict[prefix_sum] += 1
+            curr_sum += num
+            result += prefix_sums[curr_sum - k]
+            prefix_sums[curr_sum] += 1
         return result
         
 # leetcode submit region end(Prohibit modification and deletion)

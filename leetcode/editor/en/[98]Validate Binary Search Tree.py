@@ -48,12 +48,12 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def dfs(node, left, right):
+        def dfs(node, left_val, right_val):
             if not node:
                 return True
-            if not left < node.val < right:
+            if not left_val < node.val < right_val:
                 return False
-            return dfs(node.left, left, node.val) and dfs(node.right, node.val, right)  # important
+            return dfs(node.left, left_val, node.val) and dfs(node.right, node.val, right_val)  # important
         return dfs(root, -float('inf'), float('inf'))   # important
 
 # leetcode submit region end(Prohibit modification and deletion)

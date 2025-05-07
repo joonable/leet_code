@@ -56,23 +56,6 @@ class Solution:
         result = [result[key] for key in sorted(result.keys())]
         return result
 
-    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root:
-            return []
-
-        queue = deque([root])
-        result = []
-        while queue:
-            level_values = []
-            for _ in range(len(queue)):
-                node = queue.popleft()
-                level_values.append(node.val)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            result.append(level_values)
-        return result
 
     def level_order_bfs(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:

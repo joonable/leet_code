@@ -34,6 +34,27 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
+    def trap_stack(self, height: List[int]) -> int:
+        stack = []
+        total_water = 0
+
+        for i, h in enumerate(height):
+            # 현재 높이가 스택 위보다 크면 물이 고일 수 있음
+            while stack and height[stack[-1]] < h:
+                bottom = stack.pop()
+
+                if not stack:
+                    break  # 왼쪽 벽이 없으면 고일 수 없음
+
+                left = stack[-1]
+                width = i - left - 1
+                bounded_height = min(height[left], h) - height[bottom]
+                total_water += width * bounded_height
+
+            stack.append(i)
+
+        return total_water
+
     def trap(self, height: List[int]) -> int:
         """
         ✅ One-line summary

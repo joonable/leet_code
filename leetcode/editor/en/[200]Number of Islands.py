@@ -148,7 +148,7 @@ class Solution:
         return len(result)
 
 
-    def numDistinctIslands_dfs_261(self, grid: List[List[int]]) -> int:
+    def numDistinctIslands_dfs_694(self, grid: List[List[int]]) -> int:
         # Problem
         # input: grid: List[List[int]] -> 0 = water, 1 = island
         # output: n_distinct_islands in their shape

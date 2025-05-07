@@ -86,9 +86,9 @@ class Solution:
             (pos, (target - pos) / speed) for pos, speed in zip(position, speed)
         ]   # important
 
-        stack_times = []
+        stack_times = []    # important
         for car, time in sorted(cars, key=lambda x: x[0], reverse=True): # important
-            if not stack_times or time > stack_times[-1]:
+            if not stack_times or time > stack_times[-1]:   # important
                 stack_times.append(time)
         return len(stack_times)
 # leetcode submit region end(Prohibit modification and deletion)

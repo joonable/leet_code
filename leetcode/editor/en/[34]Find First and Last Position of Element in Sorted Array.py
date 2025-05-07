@@ -44,13 +44,13 @@ class Solution:
                     right = mid - 1
                 else:
                     if is_left:
-                        if mid == 0 or nums[mid - 1] < target:
+                        if mid == 0 or nums[mid - 1] < target:  # important
                             return mid
-                        right = mid - 1
+                        right = mid - 1     # important
                     else:
                         if mid == len(nums) - 1 or nums[mid + 1] > target:  # important
                             return mid
-                        left = mid + 1
+                        left = mid + 1  # important
             return -1
 
         left_index = find_bound(True)

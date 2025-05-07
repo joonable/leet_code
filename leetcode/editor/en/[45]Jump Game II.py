@@ -45,13 +45,14 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        cur_idx = 0
+        curr_pos = 0
+        n_jump = 0
         next_pos = 0
-        jump = 0
-        for i, num in enumerate(nums[:-1]):  # important
-            next_pos = max(next_pos, i + num)  # important
-            if cur_idx == i:  # important
-                cur_idx = next_pos
-                jump += 1
-        return jump
+        for pos, jump in enumerate(nums[:-1]):   # important
+            next_pos = max(next_pos, pos + jump)     # important
+            if curr_pos == pos: # important
+                curr_pos = next_pos
+                n_jump += 1
+        return n_jump
+
 # leetcode submit region end(Prohibit modification and deletion)

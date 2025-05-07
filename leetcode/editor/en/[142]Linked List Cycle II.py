@@ -72,7 +72,7 @@ class Solution:
                     slow = slow.next
                     start = start.next
                 return start
-
+        return None
 
 
         # leetcode submit region end(Prohibit modification and deletion)

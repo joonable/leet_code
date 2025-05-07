@@ -48,27 +48,13 @@ class Solution:
 
         while left < right:
             mid = (left + right) // 2
-            if nums[mid] < nums[mid + 1]:   # important
+            if nums[mid] < nums[mid + 1]:   #  peak는 오른쪽에 있다 #  important
                 left = mid + 1
             else:
                 right = mid
 
         return left
 
-        # nums = [-float('inf')] + nums + [-float('inf')]
-        # left = 1
-        # right = len(nums) - 2
-
-        # while left < right:
-        #     mid = (left + right) // 2
-        #     if nums[mid-1] < nums[mid] and nums[mid+1] < nums[mid]:
-        #         return mid - 1
-        #     elif nums[mid - 1] < nums[mid]:
-        #         left = mid + 1
-        #     else:
-        #         right = mid
-
-        # return left - 1
 
 
         

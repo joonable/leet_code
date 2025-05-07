@@ -82,26 +82,21 @@ class Node:
 """
 
 from typing import Optional
+
+
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        copied = {}
+        copies = {}  # space - O(V + E)
+        if not node:
+            return None
 
-        def dfs(curr):
-            if not node:
-                return None
-
-            if curr in copied:  # important
-                return copied[curr]
-
-            # 새 노드 만들기
-            copy = Node(curr.val)   # important
-            copied[curr] = copy
-
-            # 이웃 복사
-            for neighbor in curr.neighbors:
-                copy.neighbors.append(dfs(neighbor))    # important
-
-            return copy
+        def dfs(node):  # O(V + E): dfs - O(V), visit neighbours - O(E)
+            if node in copies:      # important
+                return copies[node] # important
+            copies[node] = Node(node.val, [])
+            for neighbor in node.neighbors:  # O(E)
+                copies[node].neighbors.append(dfs(neighbor))        # important
+            return copies[node]     # important
 
         return dfs(node)
 

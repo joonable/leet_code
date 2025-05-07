@@ -55,11 +55,12 @@ class Solution:
             prev = curr
             curr = next_node
 
-        while prev:
-            if prev.val != head.val:
+        first, second = head, prev
+        while second:
+            if first.val != second.val:
                 return False
-            prev = prev.next
-            head = head.next
+            first = first.next
+            second = second.next
         return True
         
 # leetcode submit region end(Prohibit modification and deletion)

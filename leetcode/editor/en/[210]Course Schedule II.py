@@ -97,19 +97,21 @@ def alien_dictionary_269(words):
     in_degrees = dict()
 
     # Step 1: 모든 문자 in_degrees에 등록
+    # O(N × L)
     for word in words:
         for ch in word:
             in_degrees[ch] = 0  # important
 
     # Step 2: 단어들 쌍 비교해서 그래프(edge) 만들기
-    for i in range(len(words) - 1):
+    #  총 O(N × L)
+    for i in range(len(words) - 1): #  O(N)
         prev_word = words[i]
         next_word = words[i + 1]
         if len(prev_word) >= len(next_word) \
                 and prev_word.startswith(next_word):
             return ""
 
-        for p_ch, n_ch in zip(prev_word, next_word):
+        for p_ch, n_ch in zip(prev_word, next_word):    #  O(L)
             if p_ch != n_ch:     # important
                 if n_ch not in next_chars[p_ch]:    # important
                     next_chars[p_ch].add(n_ch)
@@ -120,10 +122,11 @@ def alien_dictionary_269(words):
     queue = deque([ch for ch, degree in in_degrees.items() if degree == 0])
 
     result = []
-    while queue:
+    # 총 O(K * E)
+    while queue:    # 총 O(26) = O(1)
         p_ch = queue.popleft()
         result.append(p_ch)
-        for n_ch in next_chars[p_ch]:
+        for n_ch in next_chars[p_ch]:   # O(E)
             in_degrees[n_ch] -= 1
             if in_degrees[n_ch] == 0:
                 queue.append(n_ch)

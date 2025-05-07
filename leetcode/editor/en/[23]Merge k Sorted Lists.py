@@ -71,12 +71,12 @@ class Solution:
                 heap.append((head.val, i, head))    # important
         heapify(heap)
 
-        dummy = head = ListNode()
+        dummy = curr = ListNode()
         while heap:
             _, i, node = heappop(heap)
-            head.next = node
+            curr.next = node
             node = node.next    # important
-            head = head.next
+            curr = curr.next
             if node:    # important
                 heappush(heap, (node.val, i, node))
 

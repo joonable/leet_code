@@ -56,8 +56,6 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 import random
-
-
 class RandomizedSet:
 
     def __init__(self):
@@ -83,7 +81,7 @@ class RandomizedSet:
         return present
 
     def getRandom(self) -> int:
-        return random.choice(self.list_values)
+        return random.choice(self.list_values)      # important
 
 # Your RandomizedSet object will be instantiated and called as such:
 # obj = RandomizedSet()

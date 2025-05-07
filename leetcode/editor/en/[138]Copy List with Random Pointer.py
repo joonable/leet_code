@@ -93,6 +93,7 @@ class Solution:
 
         curr = head
         copy_head = head.next   # important
+        # 한번에 2개씩 처리
         while curr:
             copy = curr.next  # A'
             curr.next = curr.next.next  # A -> B    # important

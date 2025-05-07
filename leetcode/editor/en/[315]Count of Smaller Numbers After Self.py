@@ -45,41 +45,41 @@ class Solution:
     def countSmaller(self, nums: List[int]) -> List[int]:
         n = len(nums)
         result = [0] * n
-        enum = list(enumerate(nums))    # important
+        nums = list(enumerate(nums))    # important
 
         def merge_sort(start, end):
             if end - start <= 1:    # important
-                return enum[start:end]  # base case: 하나짜리 배열
+                return nums[start:end]  # base case: 하나짜리 배열
 
             mid = (start + end) // 2
-            left = merge_sort(start, mid)
-            right = merge_sort(mid, end)
+            left_nums = merge_sort(start, mid)
+            right_nums = merge_sort(mid, end)
 
             merged = []
-            i = j = 0
+            left_idx = right_idx = 0
 
             # 병합하면서 count 누적
-            while i < len(left) and j < len(right):
+            while left_idx < len(left_nums) and right_idx < len(right_nums):
                 # right[j]가 더 작으면: left[i]보다 먼저 나올 작고 오른쪽에 있는 수
-                if left[i][1] <= right[j][1]:
+                if left_nums[left_idx][1] <= right_nums[right_idx][1]:
                     # j개 만큼 작은 수가 이미 나온 것 → 카운트 누적
-                    result[left[i][0]] += j     # important
-                    merged.append(left[i])
-                    i += 1
+                    result[left_nums[left_idx][0]] += right_idx     # important
+                    merged.append(left_nums[left_idx])
+                    left_idx += 1
                 else:
-                    merged.append(right[j])
-                    j += 1
+                    merged.append(right_nums[right_idx])
+                    right_idx += 1
 
             # 남은 left 정리
-            while i < len(left):
-                result[left[i][0]] += j
-                merged.append(left[i])
-                i += 1
+            while left_idx < len(left_nums):
+                result[left_nums[left_idx][0]] += right_idx
+                merged.append(left_nums[left_idx])
+                left_idx += 1
 
             # 남은 right 정리 (count 필요 없음)
-            while j < len(right):
-                merged.append(right[j])
-                j += 1
+            while right_idx < len(right_nums):
+                merged.append(right_nums[right_idx])
+                right_idx += 1
 
             return merged
 

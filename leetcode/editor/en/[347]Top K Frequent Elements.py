@@ -35,6 +35,13 @@ from heapq import heappush, heappop
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        ######## dict + max_heapq
+        from heapq import heapify, heappop
+        counter = Counter(nums)
+        heap = [(-count, num) for num, count in counter.items()]
+        heapify(heap)
+        return [heappop(heap)[1] for _ in range(k)]
+
 
         ######## dict
         freqs = defaultdict(int)
