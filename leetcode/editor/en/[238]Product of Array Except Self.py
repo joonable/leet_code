@@ -40,10 +40,11 @@ class Solution:
         answer = [1] * n
         left_mul = 1
         right_mul = 1
-        for i in range(n):
-            answer[i] *= left_mul
-            answer[n - i - 1] *= right_mul
-            left_mul *= nums[i]
-            right_mul *= nums[n - i - 1]
+        for left in range(n):
+            right = n - left - 1
+            answer[left] *= left_mul
+            answer[right] *= right_mul
+            left_mul *= nums[left]
+            right_mul *= nums[right]
         return answer
 # leetcode submit region end(Prohibit modification and deletion)
