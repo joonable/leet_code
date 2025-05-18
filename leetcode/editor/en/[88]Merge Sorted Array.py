@@ -62,11 +62,25 @@ class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         """
         Do not return anything, modify nums1 in-place instead.
+        """
+        idx = len(nums1) - 1
+        while n:  # nums1를 뒤에서 부터 채우므로 nums1을 가리키는 m은 고려하지 않아도됨
+            if m and nums1[m - 1] > nums2[n - 1]:  # m이 남아있고, m이 가리키는 값이 더 클경우
+                nums1[idx] = nums1[m - 1]
+                m -= 1
+            else:
+                nums1[idx] = nums2[n - 1]
+                n -= 1
+            idx -= 1
+
+    def merge_sorting(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
         Runtime:39 ms, faster than 59.63% of Python3 online submissions.
         Memory Usage:16.6 MB, less than 78.07% of Python3 online submissions.
         """
         for i in range(m, m+n):
             nums1[i] = nums2[i-m]
         nums1.sort()
-        
+
 # leetcode submit region end(Prohibit modification and deletion)

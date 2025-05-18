@@ -31,19 +31,26 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 from typing import List
-
+from collections import defaultdict
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        dict_result = {}
-        for n in nums:
-            dict_result[n] = dict_result.get(n, 0) + 1
+        counter = defaultdict(int)
+        half = len(nums) // 2
+        for num in nums:
+            counter[num] += 1
+            if half < counter[num]:
+                return num
 
-        max_cnt = float("-inf")
-        max_n = 0
-
-        for n, cnt in dict_result.items():
-            if cnt > max_cnt:
-                max_cnt = cnt
-                max_n = n
-        return max_n
+        # dict_result = {}
+        # for n in nums:
+        #     dict_result[n] = dict_result.get(n, 0) + 1
+        #
+        # max_cnt = float("-inf")
+        # max_n = 0
+        #
+        # for n, cnt in dict_result.items():
+        #     if cnt > max_cnt:
+        #         max_cnt = cnt
+        #         max_n = n
+        # return max_n
 # leetcode submit region end(Prohibit modification and deletion)

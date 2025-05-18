@@ -70,13 +70,12 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-# TODO
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        new_idx = 0
+        idx = 0
         for num in nums:
             if num != val:
-                nums[new_idx] = num
-                new_idx += 1
-        return new_idx
+                nums[idx] = num
+                idx += 1
+        return idx
 # leetcode submit region end(Prohibit modification and deletion)
