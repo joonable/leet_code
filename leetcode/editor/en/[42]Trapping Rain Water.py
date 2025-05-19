@@ -34,26 +34,45 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
-    def trap_stack(self, height: List[int]) -> int:
+    def trap(self, height: List[int]) -> int:
         stack = []
-        total_water = 0
-
-        for i, h in enumerate(height):
-            # 현재 높이가 스택 위보다 크면 물이 고일 수 있음
-            while stack and height[stack[-1]] < h:
+        total = 0
+        for right, right_height in enumerate(height):
+            # 물을 채울수 있는 조건: 현재 벽이 더 높은 벽일 때만 빗물을 채울 수 있음
+            while stack and height[stack[-1]] < right_height:
                 bottom = stack.pop()
+                bottom_height = height[bottom]
 
-                if not stack:
-                    break  # 왼쪽 벽이 없으면 고일 수 없음
+                if not stack:  # 왼쪽벽 없으면 물이 못참
+                    continue
+                left = stack[-1]  # 왼쪽벽
+                left_height = height[left]
 
-                left = stack[-1]
-                width = i - left - 1
-                bounded_height = min(height[left], h) - height[bottom]
-                total_water += width * bounded_height
-
-            stack.append(i)
-
-        return total_water
+                bounded_height = min(right_height, left_height) - bottom_height
+                width = right - left - 1
+                total += bounded_height * width
+            stack.append(right)
+        return total
+    # def trap_stack(self, height: List[int]) -> int:
+    #     stack = []
+    #     total_water = 0
+    #
+    #     for i, h in enumerate(height):
+    #         # 현재 높이가 스택 위보다 크면 물이 고일 수 있음
+    #         while stack and height[stack[-1]] < h:
+    #             bottom = stack.pop()
+    #
+    #             if not stack:
+    #                 break  # 왼쪽 벽이 없으면 고일 수 없음
+    #
+    #             left = stack[-1]
+    #             width = i - left - 1
+    #             bounded_height = min(height[left], h) - height[bottom]
+    #             total_water += width * bounded_height
+    #
+    #         stack.append(i)
+    #
+    #     return total_water
 
     def trap(self, height: List[int]) -> int:
         """

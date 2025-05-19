@@ -43,27 +43,15 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def lengthOfLastWord(self, s: str) -> int:
-        """
-        Runtime:29 ms, faster than 88.56% of Python3 online submissions.
-        Memory Usage:16.8 MB, less than 6.15% of Python3 online submissions.
-        """
-        is_counting = False
-        idx = len(s) - 1
-        n_char = 0
-        while True:
-            if idx == -1:
-                break
-
-            if not is_counting:
-                if s[idx] != " ":
-                    is_counting = True
-                    n_char += 1
-            else:
-                if s[idx] == " ":
-                    break
-                else:
-                    n_char += 1
-
-            idx -= 1
-        return n_char
+        # return len(s.rstrip().split(" ")[-1])
+        i = len(s) - 1
+        # 포인터를 오른쪽에서 부터 왼쪽으로 오면서 단어의 마지막 ch까지 이동
+        while i >= 0 and s[i] == ' ':
+            i -= 1
+        # 단어 길이 세기
+        length = 0
+        while i >= 0 and s[i] != ' ':
+            length += 1
+            i -= 1
+        return length
 # leetcode submit region end(Prohibit modification and deletion)

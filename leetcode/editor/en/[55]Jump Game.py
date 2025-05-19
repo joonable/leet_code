@@ -44,4 +44,15 @@ class Solution:
                 return False
             max_reach = max(max_reach, idx + jump)
         return True
+
+    def canJump_v2(self, nums: List[int]) -> bool:
+        n = len(nums)
+        max_pos = 0
+        for i, jump in enumerate(nums):
+            if max_pos < i:
+                return False
+            max_pos = max(max_pos, i + jump)
+            if max_pos >= n - 1:
+                return True
+        return False
 # leetcode submit region end(Prohibit modification and deletion)

@@ -70,22 +70,32 @@
 from collections import deque
 class Solution:
     def romanToInt(self, s: str) -> int:
-        dq = deque()
-        dict_symbol = {
-            "I": 1,
-            "V": 5,
-            "X": 10,
-            "L": 50,
-            "C": 100,
-            "D": 500,
-            "M": 1000,
-        }
-        dq.append(dict_symbol[s[0]])
-        for ch in s[1:]:
-            if dq[-1] < dict_symbol[ch]:
-                dq.append(-dq.pop() + dict_symbol[ch])
-            else:
-                dq.append(dict_symbol[ch])
-        return sum(dq)
+        # space: O(1)
+        roman = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+        total = 0
+        prev = 0     # important
 
+        for ch in reversed(s):  # important
+            curr = roman[ch]
+            if curr < prev:
+                total -= curr
+            else:
+                total += curr
+            prev = curr
+
+        return total
+
+    def romanToInt_list(self, s: str) -> int:
+        # space: O(n)
+        roman_to_int = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+        n = len(s)
+        result = [roman_to_int[s[0]]]
+        for i in range(1, n):
+            num = roman_to_int[s[i]]
+            prev_num = roman_to_int[s[i - 1]]
+            if not result or num <= prev_num:
+                result.append(num)
+            else:
+                result[-1] = num - result[-1]
+        return sum(result)
 # leetcode submit region end(Prohibit modification and deletion)
