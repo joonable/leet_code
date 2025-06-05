@@ -40,14 +40,15 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-from typing import List
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        if len(nums) < 2:
+        n = len(nums)
+        if n == 1 or n == 2:
             return max(nums)
-        nums = [0] + nums
-        for i in range(3, len(nums)):
-            nums[i] += max(nums[i-2], nums[i-3])
-        return max(nums[-1], nums[-2])
 
+        nums[1] = max(nums[0], nums[1])
+        for i in range(2, n):
+            nums[i] = max(nums[i - 1], nums[i - 2] + nums[i])
+
+        return nums[-1]
 # leetcode submit region end(Prohibit modification and deletion)

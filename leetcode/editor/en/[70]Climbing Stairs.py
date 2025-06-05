@@ -36,13 +36,14 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-# TODO
+
 class Solution:
     def climbStairs(self, n: int) -> int:
-        prev_1, prev_2 = 1, 1
-        for _ in range(2, n+1):
-            dp = prev_1 + prev_2
-            prev_2 = prev_1
-            prev_1 = dp
-        return prev_1
+        if n < 2:
+            return 1
+
+        a, b = 1, 1
+        for _ in range(2, n + 1):
+            a, b = b, a + b
+        return b
 # leetcode submit region end(Prohibit modification and deletion)
