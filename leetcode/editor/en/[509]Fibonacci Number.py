@@ -46,13 +46,25 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
-    def fib(self, n: int) -> int:
-        map_dp = {0: 0, 1: 1}
-        def _fib(num: int) -> int:
-            if num in map_dp:
-                return map_dp[num]
-            map_dp[num-1] = _fib(num - 1)
-            map_dp[num-2] = _fib(num - 2)
-            return map_dp[num-1] + map_dp[num-2]
-        return _fib(n)
+    def fib_topdown(self, n: int) -> int:
+        memo = {}
+
+        def dp(i):
+            if i < 2:
+                return i
+            if i in memo:
+                return memo[i]
+            memo[i] = dp(i - 1) + dp(i - 2)
+            return memo[i]
+
+        return dp(n)
+
+    def fib_bottomup(self, n: int) -> int:
+        if n < 2:
+            return n
+        a, b = 0, 1
+        for _ in range(2, n + 1):
+            a, b = b, a + b
+        return b
+
 # leetcode submit region end(Prohibit modification and deletion)

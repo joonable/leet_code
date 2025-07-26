@@ -44,17 +44,14 @@
 from typing import List
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        rows, cols = len(matrix), len(matrix[0])
-
-        left = 0
-        right = rows * cols - 1
+        m, n = len(matrix), len(matrix[0])
+        left, right = 0, m * n - 1
 
         while left <= right:
             mid = (left + right) // 2
-            r = mid // cols
-            c = mid - (r * cols)
+            r, c = divmod(mid, n)
             if matrix[r][c] == target:
-               return True
+                return True
             elif matrix[r][c] < target:
                 left = mid + 1
             else:

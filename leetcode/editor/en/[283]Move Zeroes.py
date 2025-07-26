@@ -49,15 +49,14 @@ class Solution:
         Follow up: Could you minimize the total number of operations done?
         """
 
-        cur_pos = 0
-        for i in range(len(nums)):
-            if nums[i] != 0:
-                nums[cur_pos] = nums[i]
-                cur_pos += 1
+        n = len(nums)
+        left = 0
+        for right in range(n):
+            if nums[right] != 0:
+                nums[left] = nums[right]
+                left += 1
 
-        # nums[cur_pos:] = [0] * (len(nums) - cur_pos)
-        # OR
-        for i in range(cur_pos, len(nums)):
+        for i in range(left, n):
             nums[i] = 0
 
 # leetcode submit region end(Prohibit modification and deletion)

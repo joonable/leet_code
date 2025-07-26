@@ -50,23 +50,19 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
+        min_price = float('inf')
         max_profit = 0
-        min_price = prices[0]
-        for price in prices[1:]:
-            max_profit = max(max_profit, price - min_price)
+        for price in prices:
             min_price = min(min_price, price)
+            max_profit = max(max_profit, price - min_price)
         return max_profit
 
-    def maxProfit_old(self, prices: List[int]) -> int:
-        # for i, price in enumerate(prices[:-1]):
-        #     i
-        result_min = 10001
-        # result_max = 1001
-        result_output = -1
-        for i, price in enumerate(prices):
-            if price <= result_min:
-                result_min = price
-            if price - result_min > result_output:
-                result_output = price - result_min
-        return result_output
+    # def maxProfit(self, prices: List[int]) -> int:
+    #     max_profit = 0
+    #     min_price = prices[0]
+    #     for price in prices[1:]:
+    #         max_profit = max(max_profit, price - min_price)
+    #         min_price = min(min_price, price)
+    #     return max_profit
+
 # leetcode submit region end(Prohibit modification and deletion)
