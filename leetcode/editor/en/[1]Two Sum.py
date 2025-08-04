@@ -72,12 +72,12 @@ class Solution:
             Memory Usage:17.4 MB, less than 57.94% of Python3 online submissions.
         """
 
-        lookup = {}
+        dict_seen = {}
         for i, num in enumerate(nums):
+            if num in dict_seen:
+                return [dict_seen[num], i]
             diff = target - num
-            if diff in lookup:
-                return [lookup[diff], i]
-            lookup[num] = i
+            dict_seen[diff] = i
 
         # dict_seen = {}
         # for i in range(len(nums)):

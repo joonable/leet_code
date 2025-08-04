@@ -33,7 +33,7 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-# TODO
+# TODO 인접의 정의가 헷갈림. 4 <-> 2 비교 않고 4 <-> 3 비교해야함. BST를 좀 더 이해해야할듯
 from typing import Optional
 # Definition for a binary tree node.
 class TreeNode:
@@ -44,17 +44,18 @@ class TreeNode:
 class Solution:
     def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
         self.min_diff = float("inf")
-        self.prev_val = float("inf")
+        self.prev_val = float("inf")    # TODO (상위가 아닌) 하위 노드를 저장
 
-        def get_min_diff(node):
+        # TODO 제일 먼저 왼쪽 최하위까지 내려간후 다시 올라옴
+        def inorder(node):
             if not node:
                 return
 
-            get_min_diff(node.left)
+            inorder(node.left)
             self.min_diff = min(self.min_diff, abs(node.val - self.prev_val))
             self.prev_val = node.val
-            get_min_diff(node.right)
+            inorder(node.right)
 
-        get_min_diff(root)
+        inorder(root)
         return self.min_diff
 # leetcode submit region end(Prohibit modification and deletion)

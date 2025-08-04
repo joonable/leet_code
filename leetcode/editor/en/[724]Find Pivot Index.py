@@ -59,6 +59,8 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 from itertools import accumulate
 from typing import List
+# 어느걸로 풀어도 상관없음
+# case1: prefix_sums 풀이
 class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
         prefix_sums = [0] + list(accumulate(nums))
@@ -66,5 +68,19 @@ class Solution:
             current_sum = prefix_sums[idx]
             if current_sum == (prefix_sums[-1] - current_sum - nums[idx]):
                 return idx
+        return -1
+
+# case2: 그냥 풀이
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        total = sum(nums)
+        # if total == nums[0]:  # 없어도됨
+        #     return 0
+
+        curr_sum = 0
+        for i in range(1, len(nums)):
+            curr_sum = curr_sum + nums[i - 1]
+            if curr_sum == total - curr_sum - nums[i]:
+                return i
         return -1
 # leetcode submit region end(Prohibit modification and deletion)

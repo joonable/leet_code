@@ -39,17 +39,9 @@
 #         self.right = right
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        """
-        Runtime:42 ms, faster than 51.26% of Python3 online submissions.
-        Memory Usage:17.6 MB, less than 74.15% of Python3 online submissions.
-        """
-        def dfs(node, depth):
-            if node:
-                return max(dfs(node.left, depth+1), dfs(node.right, depth+1))
-            else:
-                return depth
-
-        return dfs(root, depth=0)
+        if not root:
+            return 0
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
 
         
 # leetcode submit region end(Prohibit modification and deletion)

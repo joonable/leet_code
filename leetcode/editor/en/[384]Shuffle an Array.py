@@ -83,7 +83,6 @@ class Solution:
             self.nums[i], self.nums[j] = self.nums[j], self.nums[i]
         return self.nums
 
-
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(nums)
 # param_1 = obj.reset()

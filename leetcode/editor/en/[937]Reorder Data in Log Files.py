@@ -60,6 +60,9 @@
 from typing import List
 class Solution:
     def reorderLogFiles(self, logs: List[str]) -> List[str]:
+        # letter -> digits
+        # letter: lexicographically, digits: maintain
+
         letter_logs = []
         digit_logs = []
         for log in logs:

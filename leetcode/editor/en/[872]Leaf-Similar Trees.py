@@ -47,18 +47,38 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    # TODO yield로 generator를 활용하면 더 좋음
     def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
         """
-        Runtime:27 ms, faster than 97.27% of Python3 online submissions.
-        Memory Usage:16.5 MB, less than 93.36% of Python3 online submissions.
+        yield: 값을 하나씩 계산하며 반환하고 싶을 때 -> 함수의 실행을 일시 중단하고, 값을 하나 반환
+        yield from: 다른 제너레이터(또는 iterable) 안에 있는 값을 반복해서 출력하고 싶을 때 -> 하위 iterable 또는 제너레이터를 반복하며 yield 위임
+
+
         """
         def dfs(node):
             if node:
                 if not node.left and not node.right:
                     yield node.val
-                else:
-                    yield from dfs(node.left)
-                    yield from dfs(node.right)
-
+                yield from dfs(node.left)
+                yield from dfs(node.right)
+                # yield 를 쓸경우 generator 객체 자체를 반환
         return list(dfs(root1)) == list(dfs(root2))
+
+
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        result1 = list()
+        result2 = list()
+
+        def dfs(node, result):
+            if node:
+                if not node.left and not node.right:
+                    result.append(node.val)
+                    return
+
+                dfs(node.left, result)
+                dfs(node.right, result)
+
+        dfs(root1, result1)
+        dfs(root2, result2)
+        return result1 == result2
 # leetcode submit region end(Prohibit modification and deletion)

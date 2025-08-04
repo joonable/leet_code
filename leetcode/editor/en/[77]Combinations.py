@@ -38,6 +38,7 @@ class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         result = []
 
+        # TODO 아직 구조가 익숙지 않음
         def backtracking(start, path):
             if len(path) == k:
                 result.append(path[:])

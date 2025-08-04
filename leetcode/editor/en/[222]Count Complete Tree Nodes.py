@@ -53,8 +53,7 @@ class TreeNode:
         self.right = right
 class Solution:
     def countNodes(self, root: Optional[TreeNode]) -> int:
-        if root is None:
+        if not root:
             return 0
-        else:
-            return 1 + self.countNodes(root.left) + self.countNodes(root.right)
+        return self.countNodes(root.left) + self.countNodes(root.right) + 1
 # leetcode submit region end(Prohibit modification and deletion)

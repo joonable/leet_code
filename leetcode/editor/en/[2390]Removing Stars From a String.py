@@ -55,6 +55,16 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def removeStars(self, s: str) -> str:
+        result = []
+        for ch in s:
+            if ch == "*":
+                result.pop()
+            else:
+                result.append(ch)
+        return "".join(result)
+
+
+    def removeStars(self, s: str) -> str:
         """
         Runtime:139 ms, faster than 61.42% of Python3 online submissions.
         Memory Usage:18.7 MB, less than 49.22% of Python3 online submissions.

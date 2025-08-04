@@ -90,6 +90,11 @@ class Solution:
         for chars in char_group.values():
             chars.sort(reverse=True)
 
+        # print(char_group)
+        # defaultdict(<class 'list'>, {3: ['d', 'b'], 2: ['c', 'a']})
+        # You can swap the characters at any pair of indices in the given pairs any number of times.
+        # 위 조건 때문에 같은 숫자에 여러개의 알파벳이 맵핑될 수 있음
+
         # Step 4: Build the result by popping the smallest available character
         return "".join(char_group[uf.find(i)].pop() for i in range(n))
 
