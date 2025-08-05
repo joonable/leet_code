@@ -48,6 +48,18 @@
 from typing import List
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        result = 0
+        intervals.sort(key=lambda x: x[1])
+        prev_end = intervals[0][1]
+        for interval in intervals[1:]:
+            if prev_end <= interval[0]:
+                prev_end = interval[1]
+            else:
+                result += 1
+        return result
+
+
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
         # non-overlapping 구간을 최대한 많이 유지하는 쪽으로 greedy하게 접근하는 게 최적
         # 끝나는 시간을 기준으로 정렬하면, 가장 빨리 끝나는 구간을 먼저 선택해서 다음 가능한 구간을 고를 수 있음 (Greedy)
         intervals.sort(key=lambda x: x[1])  # important
@@ -58,4 +70,5 @@ class Solution:
                 prev_end = end
                 non_overlapping += 1
         return len(intervals) - non_overlapping
+
 # leetcode submit region end(Prohibit modification and deletion)

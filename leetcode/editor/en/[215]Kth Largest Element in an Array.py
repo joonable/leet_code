@@ -28,9 +28,15 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
-from typing import List
+from heapq import heappop, heappush, heapify
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        return sorted(nums)[-k]
+        heap = nums[:k]
+        heapify(heap)
+        for num in nums[k:]:
+            if heap[0] < num:
+                heappush(heap, num)
+                heappop(heap)
+        return heap[0]
         
 # leetcode submit region end(Prohibit modification and deletion)

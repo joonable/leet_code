@@ -78,4 +78,5 @@ class Solution:
                 nums[idx] = num
                 idx += 1
         return idx
+
 # leetcode submit region end(Prohibit modification and deletion)

@@ -43,7 +43,36 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 from typing import List
+
+
 class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        max_area = 0
+        m, n = len(grid), len(grid[0])
+
+        def get_neighbours(r, c):
+            return [(r - 1, c), (r, c - 1), (r + 1, c), (r, c + 1)]
+
+        def is_valid(r, c):
+            return 0 <= r < m and 0 <= c < n and grid[r][c] == 1
+
+        def dfs(r, c):
+            nonlocal area
+            grid[r][c] = 0
+            area += 1
+            for nr, nc in get_neighbours(r, c):
+                if is_valid(nr, nc):
+                    dfs(nr, nc)
+
+        for r in range(m):
+            for c in range(n):
+                if grid[r][c] == 1:
+                    area = 0
+                    dfs(r, c)
+                    max_area = max(area, max_area)
+
+        return max_area
+
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         def get_neighbours(r, c):
             return [(r - 1, c), (r, c - 1), (r + 1, c), (r, c + 1)]

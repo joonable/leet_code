@@ -37,6 +37,36 @@ class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
         if len(s2) < len(s1):
             return False
+
+        needs = Counter(s1)
+        window_size = len(s1)
+        window = defaultdict(int)
+        matched = 0
+
+        left = 0
+        for right, right_ch in enumerate(s2):
+            if right_ch in needs:
+                window[right_ch] += 1
+                if window[right_ch] == needs[right_ch]:
+                    matched += 1
+
+            if right >= window_size:
+                left_ch = s2[left]
+                if left_ch in needs:
+                    if window[left_ch] == needs[left_ch]:
+                        matched -= 1
+                    window[left_ch] -= 1
+                left += 1
+
+            if matched == len(needs):
+                return True
+
+        return False
+
+
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s2) < len(s1):
+            return False
         need = Counter(s1)
         window = defaultdict(int)
         window_size = len(s1)

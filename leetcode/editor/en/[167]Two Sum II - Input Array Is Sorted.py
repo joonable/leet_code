@@ -57,14 +57,17 @@
 from typing import List
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        i, j = 0, len(numbers) - 1
-        while True:
-            if numbers[i] + numbers[j] == target:
-                break
-            elif numbers[i] + numbers[j] > target:
-                j -= 1
-            else:
-                i += 1
-        return [i + 1, j + 1]
-        
+        n = len(numbers)
+        for i in range(n):
+            if i > 0 and numbers[i] == numbers[i - 1]:
+                continue
+
+            for j in range(i + 1, n):
+                if j > i + 1 and numbers[j] == numbers[j - 1]:
+                    continue
+                if numbers[i] + numbers[j] == target:
+                    return [i + 1, j + 1]
+                elif numbers[i] + numbers[j] > target:
+                    break
+        return [0, 0]
 # leetcode submit region end(Prohibit modification and deletion)
