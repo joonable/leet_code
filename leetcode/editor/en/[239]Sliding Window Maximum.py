@@ -48,18 +48,22 @@ from typing import List
 
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        dq = deque()  # index를 저장
         result = []
-        dq = deque()
 
-        for i in range(len(nums)):
+        for i, num in enumerate(nums):
+            # 1. 윈도우 범위를 벗어난 index 제거
             if dq and dq[0] < i - k + 1:
                 dq.popleft()
 
-            while dq and nums[dq[-1]] < nums[i]:
+            # 2. 새로운 값보다 작은 값들은 뒤에서 제거
+            while dq and nums[dq[-1]] < num:
                 dq.pop()
 
+            # 3. 현재 index 추가
             dq.append(i)
 
+            # 4. 윈도우 시작되면 최대값 추가
             if i >= k - 1:
                 result.append(nums[dq[0]])
 

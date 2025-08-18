@@ -55,7 +55,7 @@ class TreeNode:
         self.right = right
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        def dfs(node, cur_sum):
+        def dfs(node, cur_sum): # important
             if not node:
                 return False
             cur_sum += node.val
@@ -64,5 +64,26 @@ class Solution:
             return dfs(node.left, cur_sum) or dfs(node.right, cur_sum)
 
         return dfs(root, 0)
+
+    def hasPathSum_v2(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if not root:
+            return False
+        result = 0
+
+        def dfs(node):
+            nonlocal result
+            result += node.val
+
+            if not node.left and not node.right:
+                curr = True if result == targetSum else False
+                result -= node.val
+                return curr
+            else:
+                left = dfs(node.left) if node.left else False
+                right = dfs(node.right) if node.right else False
+                result -= node.val
+                return left or right
+
+        return dfs(root)
 
 # leetcode submit region end(Prohibit modification and deletion)

@@ -32,6 +32,29 @@
 
 from collections import Counter
 
+from collections import Counter, defaultdict
+
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+
+        needs = Counter(s)
+        counter = defaultdict(int)
+
+        matched = 0
+        for ch in t:
+            if ch not in needs:
+                return False
+
+            counter[ch] += 1
+            if counter[ch] == needs[ch]:
+                matched += 1
+            elif counter[ch] > needs[ch]:
+                return False
+
+        return matched == len(needs)
 
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:

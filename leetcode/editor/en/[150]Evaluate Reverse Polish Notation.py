@@ -83,6 +83,7 @@ class Solution:
             else:
                 digit_stack.append(int(t))
         return digit_stack[0]
+
     # def evalRPN(self, tokens: List[str]) -> int:
     #     stack = []
     #     for token in tokens:

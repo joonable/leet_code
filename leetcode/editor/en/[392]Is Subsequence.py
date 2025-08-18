@@ -37,6 +37,20 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
+        n = len(s)
+        if n == 0:
+            return True
+
+        ptr1 = 0
+        for ptr2, ch2 in enumerate(t):
+            ch1 = s[ptr1]
+            if ch1 == ch2:
+                ptr1 += 1
+                if ptr1 == len(s):
+                    return True
+        return False
+    
+    def isSubsequence(self, s: str, t: str) -> bool:
         list_s = list(s)
         list_t = list(t)
         slice_idx = 0
