@@ -45,6 +45,21 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def jump(self, nums: List[int]) -> int:
+        n = len(nums)
+        n_jump = 0
+        jump_pos = 0
+        max_jump_pos = 0
+
+        for pos, num in enumerate(nums[:-1]):
+            max_jump_pos = max(pos + num, max_jump_pos)
+            if jump_pos <= pos:
+                n_jump += 1
+                jump_pos = max_jump_pos
+                if jump_pos >= n - 1:
+                    return n_jump
+        return n_jump
+
+    def jump_v2(self, nums: List[int]) -> int:
         curr_pos = 0
         n_jump = 0
         next_pos = 0

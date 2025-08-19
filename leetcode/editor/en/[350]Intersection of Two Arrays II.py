@@ -46,12 +46,15 @@
 
 from collections import Counter
 class Solution:
-    """
-    Follow up:
-    What if the given array is already sorted? How would you optimize your algorithm?
-    What if nums1's size is small compared to nums2's size? Which algorithm is better?
-    What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
-    """
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        nums1_counter = Counter(nums1)
+        result = []
+        for num in nums2:
+            if num in nums1_counter:
+                if nums1_counter[num] > 0:
+                    result.append(num)
+                nums1_counter[num] -= 1
+        return result
 
     def intersect(self, nums1: list[int], nums2: list[int]) -> list[int]:
         """

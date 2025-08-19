@@ -51,6 +51,9 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        # 두 문자열의 접두사 조합을 2차원 DP로 비교하면서,
+        # 같으면 대각선 +1, 다르면 왼쪽/위쪽 중 큰 값으로 갱신해
+        # dp[m][n]에 최장 공통 부분 수열의 길이를 저장한다.
         m, n = len(text1), len(text2)
         dp = [[0] * (n + 1) for _ in range(m + 1)]
         for i in range(1, m + 1):

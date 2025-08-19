@@ -44,10 +44,10 @@
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode()
-        dummy.next = head
-        curr = dummy
+        dummy.next = head   # important
+        curr = dummy    # important
 
-        while curr.next and curr.next.next:  # TODO
+        while curr.next and curr.next.next:  # important
             first = curr.next
             second = curr.next.next
 
@@ -56,36 +56,36 @@ class Solution:
             curr = curr.next
             curr.next = first
             curr = curr.next
-            curr.next = next_node
+            curr.next = next_node   # important
 
         return dummy.next
 
-    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        if not head:
-            return
-        ptr_dummy = ListNode(0)
-        ptr_curr = ptr_dummy
-        is_even = False
-        temp_val = 0
-
-        while True:
-            if not is_even:
-                temp_val = head.val
-                is_even = True
-            else:
-                ptr_curr.next = ListNode(head.val)
-                ptr_curr = ptr_curr.next
-                ptr_curr.next = ListNode(temp_val)
-                ptr_curr = ptr_curr.next
-                is_even = False
-            head = head.next
-            if not head:
-                break
-
-        if is_even:
-            ptr_curr.next = ListNode(temp_val)
-
-        return ptr_dummy.next
+    # def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    #     if not head:
+    #         return
+    #     ptr_dummy = ListNode(0)
+    #     ptr_curr = ptr_dummy
+    #     is_even = False
+    #     temp_val = 0
+    #
+    #     while True:
+    #         if not is_even:
+    #             temp_val = head.val
+    #             is_even = True
+    #         else:
+    #             ptr_curr.next = ListNode(head.val)
+    #             ptr_curr = ptr_curr.next
+    #             ptr_curr.next = ListNode(temp_val)
+    #             ptr_curr = ptr_curr.next
+    #             is_even = False
+    #         head = head.next
+    #         if not head:
+    #             break
+    #
+    #     if is_even:
+    #         ptr_curr.next = ListNode(temp_val)
+    #
+    #     return ptr_dummy.next
 
 
 

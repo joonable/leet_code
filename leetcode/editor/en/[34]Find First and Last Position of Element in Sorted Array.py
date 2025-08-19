@@ -58,4 +58,37 @@ class Solution:
             return [-1, -1]
         right_index = find_bound(False)
         return [left_index, right_index]
+
+    class Solution:
+        def searchRange(self, nums: List[int], target: int) -> List[int]:
+            def binary_search(is_left=True):
+                left, right = 0, n - 1
+                while left <= right:
+                    mid = (left + right) // 2
+                    if nums[mid] < target:
+                        left = mid + 1
+                    elif nums[mid] > target:
+                        right = mid - 1
+                    elif nums[mid] == target:
+                        if is_left:
+                            if mid == 0 or nums[mid - 1] < nums[mid]:
+                                return mid
+                            else:
+                                right = mid - 1
+                        else:
+                            if mid == n - 1 or nums[mid] < nums[mid + 1]:
+                                return mid
+                            else:
+                                left = mid + 1
+                return -1
+
+            n = len(nums)
+            result = [-1, -1]
+            result[0] = binary_search()
+            if result[0] == -1:
+                return result
+            else:
+                result[1] = binary_search(False)
+            return result
+
 # leetcode submit region end(Prohibit modification and deletion)

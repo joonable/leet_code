@@ -33,6 +33,14 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
+        m, n = len(haystack), len(needle)
+        for i in range(m):
+            if haystack[i:i+n] == needle:
+                return i
+        return -1
+
+
+    def strStr(self, haystack: str, needle: str) -> int:
         """
         Runtime:34 ms, faster than 64.25% of Python3 online submissions.
         Memory Usage:16.5 MB, less than 43.05% of Python3 online submissions.

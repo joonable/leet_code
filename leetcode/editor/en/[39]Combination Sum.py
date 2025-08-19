@@ -54,6 +54,32 @@ from typing import List
 
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        n = len(candidates)
+        candidates.sort()
+        result = []
+        combination = []
+        sum_combination = 0
+
+        def backtracking(idx):
+            nonlocal sum_combination
+            if sum_combination == target:
+                result.append(combination[:])
+
+            for i in range(idx, n):
+                candidate = candidates[i]
+                if candidate + sum_combination > target:
+                    break
+
+                combination.append(candidate)
+                sum_combination += candidate
+                backtracking(i)
+                combination.pop()
+                sum_combination -= candidate
+
+        backtracking(0)
+        return result
+
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         result = []
         def backtrack(idx, path):
             current_sum = sum(path)

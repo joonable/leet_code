@@ -68,4 +68,14 @@ class Solution:
         for idx, citation in enumerate(citations):
             h_index = max(h_index, min(n_papers - idx, citation))
         return h_index
+
+    def hIndex_sort_v2(self, citations: List[int]) -> int:
+        n = len(citations)
+        citations.sort(key=lambda x: -x)
+        for i, citation in enumerate(citations):
+            if citation >= i + 1:
+                pass
+            else:
+                return i
+        return n
 # leetcode submit region end(Prohibit modification and deletion)

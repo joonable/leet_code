@@ -63,6 +63,30 @@ class Solution:
 
         return dummy.next
 
+    def mergeTwoLists_v2(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = curr = ListNode()
+
+        while list1 or list2:
+            if not list1:
+                while list2:
+                    curr.next = list2
+                    list2 = list2.next
+                    curr = curr.next
+            elif not list2:
+                while list1:
+                    curr.next = list1
+                    list1 = list1.next
+                    curr = curr.next
+            elif list1.val <= list2.val:
+                curr.next = list1
+                list1 = list1.next
+                curr = curr.next
+            else:
+                curr.next = list2
+                list2 = list2.next
+                curr = curr.next
+        return dummy.next
+
         # if not list1 and not list2:
         #     return list1
         # elif not list1:

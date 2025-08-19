@@ -69,13 +69,13 @@ class Solution:
         # output: we need return the edge making a cycle
         # constraints: 1-index
 
-        # UnionFind -> dectect a cycle
-        # union(x, y) -> bool: if True (= already connected) x, y is the edge making a cycle
+        # UnionFind -> detect a cycle
+        # union(x, y) -> bool: if True (= already connected) x, y is the edge making a cycle # TODO important
 
         uf = UnionFind(len(edges) + 1)  # 1-index
         for x, y in edges:
             if not uf.union(x, y):
                 return [x, y]
-
+        return [-1, -1]
 
 # leetcode submit region end(Prohibit modification and deletion)

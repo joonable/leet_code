@@ -46,4 +46,16 @@ class Solution:
         for _ in range(2, n + 1):
             a, b = b, a + b
         return b
+
+
+    def climbStairs_dp(self, n: int) -> int:
+        dp = [0] * (n)
+        if n < 2:
+            return n
+
+        dp[0], dp[1] = 1, 2
+        for i in range(2, n):
+            dp[i] = dp[i - 2] + dp[i - 1]
+
+        return dp[-1]
 # leetcode submit region end(Prohibit modification and deletion)

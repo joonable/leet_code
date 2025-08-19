@@ -49,13 +49,13 @@ class Solution:
     def candy(self, ratings: List[int]) -> int:
         n = len(ratings)
         result = [1] * n
-        for i in range(1, n):
+        for i in range(1, n):   # important
             if ratings[i - 1] < ratings[i]:
                 result[i] = result[i - 1] + 1
 
-        for i in range(n - 2, -1, -1):
+        for i in range(n - 2, -1, -1):  # important
             if ratings[i] > ratings[i + 1]:
-                result[i] = max(result[i], result[i + 1] + 1)
+                result[i] = max(result[i], result[i + 1] + 1)   # important
 
         return sum(result)
         

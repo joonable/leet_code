@@ -34,11 +34,12 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
-    def trap(self, height: List[int]) -> int:
+    def trap_monotonic_stack(self, height: List[int]) -> int:
         stack = []
         total = 0
         for right, right_height in enumerate(height):
             # 물을 채울수 있는 조건: 현재 벽이 더 높은 벽일 때만 빗물을 채울 수 있음
+            # Increasing: stack에 값을 decreasing 하게 모으다가 더 큰 값 출현 시 이벤트 발생
             while stack and height[stack[-1]] < right_height:
                 bottom = stack.pop()
                 bottom_height = height[bottom]
@@ -53,26 +54,6 @@ class Solution:
                 total += bounded_height * width
             stack.append(right)
         return total
-    # def trap_stack(self, height: List[int]) -> int:
-    #     stack = []
-    #     total_water = 0
-    #
-    #     for i, h in enumerate(height):
-    #         # 현재 높이가 스택 위보다 크면 물이 고일 수 있음
-    #         while stack and height[stack[-1]] < h:
-    #             bottom = stack.pop()
-    #
-    #             if not stack:
-    #                 break  # 왼쪽 벽이 없으면 고일 수 없음
-    #
-    #             left = stack[-1]
-    #             width = i - left - 1
-    #             bounded_height = min(height[left], h) - height[bottom]
-    #             total_water += width * bounded_height
-    #
-    #         stack.append(i)
-    #
-    #     return total_water
 
     def trap(self, height: List[int]) -> int:
         """

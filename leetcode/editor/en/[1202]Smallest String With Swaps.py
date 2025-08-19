@@ -97,5 +97,19 @@ class Solution:
 
         # Step 4: Build the result by popping the smallest available character
         return "".join(char_group[uf.find(i)].pop() for i in range(n))
-
+    #
+    # def smallestStringWithSwaps(self, s: str, pairs: List[List[int]]) -> str:
+    #     n = len(s)
+    #     uf = UnionFind(n)
+    #     for pair in pairs:
+    #         uf.union(pair[0], pair[1])
+    #
+    #     dict_pos_chars = defaultdict(list)
+    #     for i, ch in enumerate(s):
+    #         dict_pos_chars[uf.find(i)].append(ch)
+    #
+    #     for l in dict_pos_chars.values():
+    #         l.sort(reverse=True)
+    #
+    #     return "".join([dict_pos_chars[uf.find(x)].pop() for x in range(n)])
 # leetcode submit region end(Prohibit modification and deletion)

@@ -43,5 +43,14 @@ class Solution:
             return 0
         return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
 
+    def maxDepth_dfs(self, root: Optional[TreeNode]) -> int:
+        def dfs(node, curr_level):
+            if not node:
+                return curr_level
+            left = dfs(node.left, curr_level + 1)
+            right = dfs(node.right, curr_level + 1)
+            return max(left, right)
+
+        return dfs(root, 0)
         
 # leetcode submit region end(Prohibit modification and deletion)

@@ -36,16 +36,14 @@ from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
-        if len(grid) == 1:
-            return sum(grid[0])
-        max_val = float('inf')
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if i == 0 and j == 0:
-                    grid[i][j] = grid[i][j]
+        rows, cols = len(grid), len(grid[0])
+        max_val = float("inf")
+        for r in range(rows):
+            for c in range(cols):
+                if r == c == 0:
                     continue
-                prev_i = grid[i-1][j] if i != 0 else max_val
-                prev_j = grid[i][j-1] if j != 0 else max_val
-                grid[i][j] = grid[i][j] + min(prev_i, prev_j)
+                left = grid[r][c - 1] if c != 0 else max_val
+                top = grid[r - 1][c] if r != 0 else max_val
+                grid[r][c] += min(left, top)
         return grid[-1][-1]
 # leetcode submit region end(Prohibit modification and deletion)

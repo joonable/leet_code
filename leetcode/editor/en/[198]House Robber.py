@@ -51,4 +51,17 @@ class Solution:
             nums[i] = max(nums[i - 1], nums[i - 2] + nums[i])
 
         return nums[-1]
+
+    def rob_dp(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n < 2:
+            return max(nums)
+
+        dp = [0] * n
+        dp[0], dp[1] = nums[0], max(nums[0], nums[1])
+
+        for i in range(2, n):
+            dp[i] = max(dp[i - 2] + nums[i], dp[i - 1])
+
+        return max(dp[-2:])
 # leetcode submit region end(Prohibit modification and deletion)

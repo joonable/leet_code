@@ -30,6 +30,28 @@
 from typing import List
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
+        from collections import defaultdict
+        def backtracking():
+            if len(path) == n:
+                result.append(path[:])
+            else:
+                for num in nums:
+                    if not visited[num]:
+                        visited[num] = True
+                        path.append(num)
+                        backtracking()
+                        path.pop()
+                        visited[num] = False
+
+        n = len(nums)
+        result = []
+        path = []
+        visited = defaultdict(bool)
+
+        backtracking()
+        return result
+
+    def permute_v2(self, nums: List[int]) -> List[List[int]]:
         result = []
         len_nums = len(nums)
         def backtrack(path):

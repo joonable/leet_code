@@ -42,4 +42,12 @@ class Solution:
             magazine_counter[ch] -= 1
         return True
 
+
+    def canConstruct_v2(self, ransomNote: str, magazine: str) -> bool:
+        needs = Counter(magazine)
+        for ch in ransomNote:
+            needs[ch] -= 1
+            if needs[ch] < 0:
+                return False
+        return True
 # leetcode submit region end(Prohibit modification and deletion)

@@ -56,4 +56,13 @@ class Solution:
         if not root:
             return 0
         return self.countNodes(root.left) + self.countNodes(root.right) + 1
+
+    def countNodes_dfs(self, root: Optional[TreeNode]) -> int:
+        def dfs(node):
+            if not node:
+                return 0
+            left = dfs(node.left)
+            right = dfs(node.right)
+            return left + right + 1
+        return dfs(root)
 # leetcode submit region end(Prohibit modification and deletion)

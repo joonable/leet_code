@@ -43,31 +43,49 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
-        """
-        Runtime:32 ms, faster than 74.63% of Python3 online submissions.
-        Memory Usage:16.7 MB, less than 14.41% of Python3 online submissions.
-        """
-        if len(list(pattern)) != len(s.split()):
+        pattern = list(pattern)
+        s = s.split(" ")
+        if len(pattern) != len(s):
             return False
 
-        dict_ptrn_word = {}
-        dict_word_ptrn = {}
-
-        for ptrn, word in zip(list(pattern), s.split()):
-            saved_word = dict_ptrn_word.get(ptrn, None)
-            saved_ptrn = dict_word_ptrn.get(word, None)
-
-            if not saved_word:
-                dict_ptrn_word[ptrn] = word
-            else:
-                if saved_word != word:
-                    return False
-
-            if not saved_ptrn:
-                dict_word_ptrn[word] = ptrn
-            else:
-                if saved_ptrn != ptrn:
-                    return False
+        dict_pattern_to_word = {}
+        dict_word_to_pattern = {}
+        for p, word in zip(pattern, s):
+            if p in dict_pattern_to_word and word != dict_pattern_to_word[p]:
+                return False
+            if word in dict_word_to_pattern and p != dict_word_to_pattern[word]:
+                return False
+            dict_pattern_to_word[p] = word
+            dict_word_to_pattern[word] = p
         return True
+
+    #
+    # def wordPattern(self, pattern: str, s: str) -> bool:
+    #     """
+    #     Runtime:32 ms, faster than 74.63% of Python3 online submissions.
+    #     Memory Usage:16.7 MB, less than 14.41% of Python3 online submissions.
+    #     """
+    #     if len(list(pattern)) != len(s.split()):
+    #         return False
+    #
+    #     dict_ptrn_word = {}
+    #     dict_word_ptrn = {}
+    #
+    #     for ptrn, word in zip(list(pattern), s.split()):
+    #         saved_word = dict_ptrn_word.get(ptrn, None)
+    #         saved_ptrn = dict_word_ptrn.get(word, None)
+    #
+    #         if not saved_word:
+    #             dict_ptrn_word[ptrn] = word
+    #         else:
+    #             if saved_word != word:
+    #                 return False
+    #
+    #         if not saved_ptrn:
+    #             dict_word_ptrn[word] = ptrn
+    #         else:
+    #             if saved_ptrn != ptrn:
+    #                 return False
+    #     return True
 
 # leetcode submit region end(Prohibit modification and deletion)
