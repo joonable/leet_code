@@ -67,29 +67,27 @@ class Solution:
         모든 노드를 방문했다면 = numCourses == 0
         → 이는 사이클 없이 모든 노드를 위상정렬한 것과 동일한 의미!
         '''
-        in_degrees = [0] * numCourses
-        next_courses = defaultdict(list)
-
+        indegrees = [0] * numCourses
+        courses = defaultdict(list)
         for next_course, prev_course in prerequisites:
-            in_degrees[next_course] += 1
-            next_courses[prev_course].append(next_course)
+            courses[prev_course].append(next_course)
+            indegrees[next_course] += 1
 
-        queue = deque()
-        result = []
-
-        for course, in_degree in enumerate(in_degrees):
-            if in_degree == 0:
-                queue.append(course)
+        result = [course for course, indegree in enumerate(indegrees) if indegree == 0]
+        queue = deque(result)
 
         while queue:
-            prev_course = queue.popleft()
-            result.append(prev_course)
-            for next_course in next_courses[prev_course]:
-                in_degrees[next_course] -= 1
-                if in_degrees[next_course] == 0:
-                    queue.append(next_course)
+            for _ in range(len(queue)):
+                prev_course = queue.popleft()
+                next_courses = courses[prev_course]
+                for next_course in next_courses:
+                    indegrees[next_course] -= 1
+                    if indegrees[next_course] == 0:
+                        queue.append(next_course)
+                        result.append(next_course)
 
         return result if len(result) == numCourses else []
+        # return result if sum(indegrees) == 0 else []
 
 from collections import defaultdict
 def alien_dictionary_269(words):

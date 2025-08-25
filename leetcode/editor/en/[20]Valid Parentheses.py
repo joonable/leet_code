@@ -49,31 +49,16 @@ class Solution:
     Memory Usage:16.6 MB, less than 74.88% of Python3 online submissions.
     """
     def isValid(self, s: str) -> bool:
-        # dq = deque()
-        # for ch in s:
-        #     if ch in ["(", "[", "{"]:
-        #         dq.append(ch)
-        #     else:
-        #         if not dq:
-        #             return False
-        #         p = dq.pop()
-        #         if ch == ")" and p != "(":
-        #             return False
-        #         elif ch == "}" and p != "{":
-        #             return False
-        #         elif ch == "]" and p != "[":
-        #             return False
-        # return True if not dq else False
         stack = []
-        matching = {')': '(', ']': '[', '}': '{'}
-        open_brackets = matching.values()
-        for ch in s:
-            if ch in open_brackets:  # 여는 괄호
-                stack.append(ch)
+        dict_brackets = {")": "(" , "]": "[", "}": "{"}
+        open_brackets = set(dict_brackets.values())
+        for bracket in s:
+            if bracket in open_brackets:
+                stack.append(bracket)
             else:
-                if not stack or stack.pop() != matching[ch]:
+                if not stack or stack.pop() != dict_brackets[bracket]:
                     return False
-        return not stack
+        return len(stack) == 0
 
 
 

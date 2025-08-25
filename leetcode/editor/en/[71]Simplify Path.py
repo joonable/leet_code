@@ -103,20 +103,6 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def simplifyPath(self, path: str) -> str:
-        # if path == '/':
-        #     return '/'
-        #
-        # list_result = []
-        # for i, sub_path in enumerate(path.split('/')):
-        #     if sub_path == '.' or sub_path == '':
-        #         continue
-        #     elif sub_path == '..':
-        #         if list_result:
-        #             list_result.pop()
-        #     else:
-        #         list_result.append(sub_path)
-        # return '/' + '/'.join(list_result)
-
         stack = []
         for part in path.split('/'):
             if part == '' or part == '.':
@@ -127,5 +113,4 @@ class Solution:
             else:
                 stack.append(part)
         return '/' + '/'.join(stack)
-
 # leetcode submit region end(Prohibit modification and deletion)

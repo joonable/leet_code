@@ -38,13 +38,13 @@ class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         n = len(nums)
         answer = [1] * n
-        left_mul = 1
+        left_mul = 1    # important
         right_mul = 1
         for left in range(n):
             right = n - left - 1
-            answer[left] *= left_mul
+            answer[left] *= left_mul    # important
             answer[right] *= right_mul
-            left_mul *= nums[left]
+            left_mul *= nums[left]  # important
             right_mul *= nums[right]
         return answer
 # leetcode submit region end(Prohibit modification and deletion)

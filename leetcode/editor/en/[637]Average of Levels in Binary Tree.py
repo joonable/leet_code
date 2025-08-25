@@ -36,7 +36,7 @@
 from typing import List, Optional
 from collections import deque
 # Definition for a binary tree node.
-# TODO
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -44,9 +44,6 @@ class TreeNode:
         self.right = right
 class Solution:
     def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
-        if not root:
-            return []
-
         result = []
         queue = deque([root])
 
@@ -65,5 +62,25 @@ class Solution:
 
             result.append(level_sum / level_size)
 
+        return result
+
+    def averageOfLevels_dfs(self, root: Optional[TreeNode]) -> List[float]:
+        from collections import defaultdict
+        dict_level_value = defaultdict(list)
+
+        def dfs(node, level):
+            if not node:
+                return
+
+            dict_level_value[level].append(node.val)
+
+            dfs(node.left, level + 1)
+            dfs(node.right, level + 1)
+
+        dfs(root, 0)
+        n_level = len(dict_level_value)
+        result = [0] * n_level
+        for i in range(n_level):
+            result[i] = sum(dict_level_value[i]) / len(dict_level_value[i])
         return result
 # leetcode submit region end(Prohibit modification and deletion)

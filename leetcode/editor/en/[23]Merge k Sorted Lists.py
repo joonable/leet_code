@@ -79,7 +79,6 @@ class Solution:
             curr = curr.next
             if node:    # important
                 heappush(heap, (node.val, i, node))
-
         return dummy.next
 
     # def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:

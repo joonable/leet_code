@@ -36,22 +36,26 @@
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+from collections import Counter
 class Solution:
-    """
-    Runtime:30 ms, faster than 97.92% of Python3 online submissions.
-    Memory Usage:16.6 MB, less than 96.59% of Python3 online submissions.
-    """
     def uniqueOccurrences(self, arr: List[int]) -> bool:
-        from collections import Counter
         counter = Counter(arr)
-        list_cnt = counter.values()
-        dict_cnt = {}
-        for cnt in list_cnt:
-            if dict_cnt.get(cnt, True):
-                dict_cnt[cnt] = False
-            else:
-                return False
-        return True
+        return len(set(counter.values())) == len(counter)
+
+    # """
+    # Runtime:30 ms, faster than 97.92% of Python3 online submissions.
+    # Memory Usage:16.6 MB, less than 96.59% of Python3 online submissions.
+    # """
+    # def uniqueOccurrences(self, arr: List[int]) -> bool:
+    #     counter = Counter(arr)
+    #     list_cnt = counter.values()
+    #     dict_cnt = {}
+    #     for cnt in list_cnt:
+    #         if dict_cnt.get(cnt, True):
+    #             dict_cnt[cnt] = False
+    #         else:
+    #             return False
+    #     return True
 
 
 # leetcode submit region end(Prohibit modification and deletion)

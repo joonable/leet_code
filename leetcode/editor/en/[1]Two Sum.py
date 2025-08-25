@@ -78,6 +78,7 @@ class Solution:
                 return [dict_seen[num], i]
             diff = target - num
             dict_seen[diff] = i
+        return [0, 0]
 
         # dict_seen = {}
         # for i in range(len(nums)):

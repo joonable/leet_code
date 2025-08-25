@@ -55,6 +55,18 @@ class TreeNode:
         self.right = right
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        def dfs(node, curr_sum):
+            curr_sum += node.val
+            if not node.left and not node.right:
+                return curr_sum == targetSum
+            else:
+                left = dfs(node.left, curr_sum) if node.left else False
+                right = dfs(node.right, curr_sum) if node.right else False
+                return left or right  #
+
+        return dfs(root, 0) if root else False
+
+    def hasPathSum_v2(self, root: Optional[TreeNode], targetSum: int) -> bool:
         def dfs(node, cur_sum): # important
             if not node:
                 return False
@@ -65,7 +77,7 @@ class Solution:
 
         return dfs(root, 0)
 
-    def hasPathSum_v2(self, root: Optional[TreeNode], targetSum: int) -> bool:
+    def hasPathSum_v3(self, root: Optional[TreeNode], targetSum: int) -> bool:
         if not root:
             return False
         result = 0

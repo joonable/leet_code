@@ -34,6 +34,19 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
+        n = len(strs)
+        result = []
+        end_idx = 0
+        ground_truth = strs[0]
+        for i, ch in enumerate(ground_truth):
+            for string in strs[1:]:
+                if i == len(string) or ch != string[i]:
+                    return ground_truth[:end_idx]
+            end_idx += 1
+        return ground_truth[:end_idx]
+
+
+    def longestCommonPrefix_v2(self, strs: List[str]) -> str:
         """
         Success:
             Runtime:32 ms, faster than 95.52% of Python3 online submissions.

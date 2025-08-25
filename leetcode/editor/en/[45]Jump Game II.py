@@ -50,12 +50,12 @@ class Solution:
         jump_pos = 0
         max_jump_pos = 0
 
-        for pos, num in enumerate(nums[:-1]):
-            max_jump_pos = max(pos + num, max_jump_pos)
-            if jump_pos <= pos:
-                n_jump += 1
+        for pos, jump in enumerate(nums[:-1]):
+            max_jump_pos = max(max_jump_pos, pos + jump)
+            if jump_pos == pos:
                 jump_pos = max_jump_pos
-                if jump_pos >= n - 1:
+                n_jump += 1
+                if max_jump_pos >= n - 1:
                     return n_jump
         return n_jump
 
