@@ -42,9 +42,12 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        grid = [[1] * n] * m
-        for i in range(1, m):
-            for j in range(1, n):
-                grid[i][j] = grid[i - 1][j] + grid[i][j - 1]
-        return grid[-1][-1]
+        dp = [[0] * n for _ in range(m)]
+        for r in range(m):
+            for c in range(n):
+                if r == 0 or c == 0:
+                    dp[r][c] = 1
+                else:
+                    dp[r][c] = dp[r][c - 1] + dp[r - 1][c]
+        return dp[-1][-1]
 # leetcode submit region end(Prohibit modification and deletion)

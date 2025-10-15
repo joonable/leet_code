@@ -35,7 +35,7 @@ from itertools import accumulate
 from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
-    def minPathSum(self, grid: List[List[int]]) -> int:
+    def minPathSum_inf(self, grid: List[List[int]]) -> int:
         rows, cols = len(grid), len(grid[0])
         max_val = float("inf")
         for r in range(rows):
@@ -45,5 +45,19 @@ class Solution:
                 left = grid[r][c - 1] if c != 0 else max_val
                 top = grid[r - 1][c] if r != 0 else max_val
                 grid[r][c] += min(left, top)
+        return grid[-1][-1]
+
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        for r in range(1, rows):
+            grid[r][0] += grid[r - 1][0]
+
+        for c in range(1, cols):
+            grid[0][c] += grid[0][c - 1]
+
+        for r in range(1, rows):
+            for c in range(1, cols):
+                grid[r][c] += min(grid[r - 1][c], grid[r][c - 1])
+
         return grid[-1][-1]
 # leetcode submit region end(Prohibit modification and deletion)
