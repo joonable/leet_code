@@ -58,11 +58,10 @@ class Solution:
         return max_profit
 
     # def maxProfit(self, prices: List[int]) -> int:
-    #     max_profit = 0
-    #     min_price = prices[0]
+    #     best_profit = 0
+    #     min_stock = prices[0]
     #     for price in prices[1:]:
-    #         max_profit = max(max_profit, price - min_price)
-    #         min_price = min(min_price, price)
-    #     return max_profit
-
+    #         min_stock = min(min_stock, price)
+    #         best_profit = max(price - min_stock, best_profit)
+    #     return best_profit
 # leetcode submit region end(Prohibit modification and deletion)
