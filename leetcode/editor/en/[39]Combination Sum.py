@@ -53,6 +53,26 @@
 from typing import List
 
 class Solution:
+    def combinationSum_new(self, candidates: List[int], target: int) -> List[List[int]]:
+        result = []
+        n = len(candidates)
+
+        def backtrack(idx, curr, path):
+            if curr == target:
+                result.append(path.copy())
+            else:
+                for i in range(idx, n):
+                    num = candidates[i]
+                    if curr + num <= target:
+                        curr += num
+                        path.append(num)
+                        backtrack(i, curr, path)
+                        curr -= num
+                        path.pop()
+
+        backtrack(0, 0, [])
+        return result
+
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         n = len(candidates)
         candidates.sort()

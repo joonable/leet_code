@@ -1,6 +1,34 @@
 # you can write to stdout for debugging purposes, e.g.
 # print("this is a debug message")
 
+
+def solution_stack(A):
+    INF = float("inf")
+    n_rows, n_cols = len(A), len(A[0])
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+    def dfs_iterative(sr, sc, colour):
+        stack = [(sr, sc)]
+        A[sr][sc] = INF
+
+        while stack:
+            r, c = stack.pop()
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < n_rows and 0 <= nc < n_cols and A[nr][nc] == colour:
+                    A[nr][nc] = INF
+                    stack.append((nr, nc))
+
+    result = 0
+    for r in range(n_rows):
+        for c in range(n_cols):
+            if A[r][c] != INF:
+                result += 1
+                dfs_iterative(r, c, A[r][c])
+
+    return result
+
+
 def solution_dfs(A):
     if A == [[0]]:
         A = [[_ for _ in range(300_000)] for _ in range(300_000)]

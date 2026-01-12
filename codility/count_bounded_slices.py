@@ -1,32 +1,31 @@
 from collections import deque
 
 def solution(K, A):
+    # Implement your solution here
+    min_queue, max_queue = deque(), deque()
+
     n = len(A)
-    minDQ, maxDQ = deque(), deque()
-    L = 0
-    ans = 0
-    CAP = 1_000_000_000  # 있으면 사용, 없으면 제거
+    l = 0
+    result = 0
+    for r in range(n):
+        x = A[r]
+        while min_queue and A[min_queue[-1]] > x:
+            min_queue.pop()
+        min_queue.append(r)
 
-    for R, x in enumerate(A):
-        # 업데이트: 단조 데크 유지
-        while minDQ and A[minDQ[-1]] > x:
-            minDQ.pop()
-        minDQ.append(R)
+        while max_queue and A[max_queue[-1]] < x:
+            max_queue.pop()
+        max_queue.append(r)
 
-        while maxDQ and A[maxDQ[-1]] < x:
-            maxDQ.pop()
-        maxDQ.append(R)
+        while A[max_queue[0]] - A[min_queue[0]] > K:
+            if min_queue[0] == l:
+                min_queue.popleft()
+            if max_queue[0] == l:
+                max_queue.popleft()
+            l += 1
 
-        # 조건 위반 시 L 이동
-        while A[maxDQ[0]] - A[minDQ[0]] > K:
-            if minDQ[0] == L:
-                minDQ.popleft()
-            if maxDQ[0] == L:
-                maxDQ.popleft()
-            L += 1
+        result += r - l + 1
+        if result > 1_000_000_000:
+            return 1_000_000_000
 
-        ans += R - L + 1
-        if ans > CAP:
-            return CAP
-
-    return ans
+    return result
