@@ -36,6 +36,18 @@ class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         n = len(nums)
         result = []
+        for mask in range(1 << n):
+            result.append([])
+            m = mask
+            while m:
+                lsb = m & -m
+                result[-1].append(nums[lsb.bit_length() - 1])
+                m -= lsb
+        return result
+
+    def subsets_backtracking(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        result = []
 
         def backtracking(start, path):
             result.append(path.copy())

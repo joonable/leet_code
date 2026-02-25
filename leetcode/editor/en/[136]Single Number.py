@@ -33,20 +33,21 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def singleNumber(self, nums: list[int]) -> int:
-        """
-        Success:
-            Runtime:123 ms, faster than 64.68% of Python3 online submissions.
-            Memory Usage:19 MB, less than 27.73% of Python3 online submissions.
-        """
-        d = dict()
-        for n in nums:
-            cnt = d.get(n, True)
-            if cnt:
-                d[n] = False
-            else:
-                del d[n]
-        single_num = list(d.keys())[0]
-        return single_num
+        result = 0
+        for num in nums:
+            result ^= num
+        return result
+
+    # def singleNumber_dict(self, nums: list[int]) -> int:
+    #     d = dict()
+    #     for n in nums:
+    #         cnt = d.get(n, True)
+    #         if cnt:
+    #             d[n] = False
+    #         else:
+    #             del d[n]
+    #     single_num = list(d.keys())[0]
+    #     return single_num
 
     # def singleNumber(self, nums: list[int]) -> int:
     #     """
